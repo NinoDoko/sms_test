@@ -1,0 +1,67 @@
+<html>
+    <head>
+      <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+      <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+      <script type="text/javascript" src="{{ STATIC_URL }}jquery-1.12.0.js">
+      </script> 
+      <title>VapourApps SMS</title>
+      {% block vap_head %}
+      {% endblock %}
+      <style>
+          body{
+              margin:0;
+              padding:0;
+              height:100%;
+          }
+          #va-container{
+              min-height:100%;
+              position:relative;
+          }
+          #va-header{
+              padding:10px;
+          }
+          #va-content{
+              padding:10px;
+              padding-bottom:60px;
+          }
+
+          .va-footer{
+              position:absolute;
+              width:100%;
+              bottom:0%;
+              height:60px;
+          }
+      </style>
+    </head>
+    <body>
+      <div id = "va-container">
+        <nav class="navbar navbar-default" id = "va-header">
+          <div class="container-fluid">
+            <div class="navbar-header">
+              <a class="navbar-brand" href="{% url "sms_app:index"%}">VapourApps SMS</a>
+            </div>
+            <ul class="nav navbar-nav">
+              <li><a href="{% url "sms_app:sms_template_index"%}">Manage SMS templates</a></li>
+              <li><a href="#">More stuff</a></li>
+              <li><a href="/admin/auth/user/">Manage users</a></li>
+              <li><a href="{% url "sms_app:logout"%}">Log out</a></li>
+            </ul>
+            {% if messages %}
+                <ul class="messages">
+                    {% for message in messages %}
+                    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+          </div>
+        </nav>
+          <div id = "va-content">
+            {% block vap_content %}
+            {% endblock %}
+          </div>
+        <div class="panel panel-default" id ="va-footer">
+          <div class="panel-body">Powered by VapourApps</div>
+        </div>
+      </div>
+    </body>
+</html>

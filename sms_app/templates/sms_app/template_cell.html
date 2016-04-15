@@ -1,0 +1,6 @@
+<div class = "sms_template_cell">
+  <li class = list-group-item><a href = "{% url "sms_app:view_sms_template" sms_template.pk %}"> {{ sms_template.template_title }} </a>
+  </br>
+  {{ sms_template.template_text }} </li>                  
+</div>
+

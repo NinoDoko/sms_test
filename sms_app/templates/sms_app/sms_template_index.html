@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block vap_content %}
+    <div class = 'container'>
+        <div class = 'row'>
+            <div class = 'container'>
+                Create a new template
+                {% include 'sms_app/new_template_form.html' %}
+            </div>
+            <div class = 'col-md-8'>
+                Created templates
+                {% for sms_template in sms_templates %}
+                    {{ sms_template.text }}
+                    {% include 'sms_app/template_cell.html' %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
