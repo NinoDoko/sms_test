@@ -17,18 +17,19 @@ def query_users_from_get_args(request, users):
     return users
 
 def log_out(request):
-    print 'Im here'
     logout(request)
-    return redirect('/admin')
+    return redirect('/sms_app')
     
 @login_required
 def sms_template_index(request):
+    users = Contact.objects.all()
+    test_contact = users.all().filter(name = 'Test User')[0]
     if request.POST : 
         new_template = MessageTemplate(template_text = request.POST['sms_template'], template_title = request.POST['template_title'])
         if new_template.save():
             messages.success(request, 'Template saved successfuly')
     sms_templates = MessageTemplate.objects.all()
-    return render(request, 'sms_app/sms_template_index.html', {'sms_templates' : sms_templates})
+    return render(request, 'sms_app/sms_template_index.html', {'sms_templates' : sms_templates, 'test_contact' : test_contact})
 
 @login_required
 def view_sms_template(request, sms_id):

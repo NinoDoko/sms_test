@@ -11,7 +11,9 @@
 {% block vap_content %}
     <div class = 'container'>
         <div class = 'row'>
-            {% include 'sms_app/new_template_form.html' %}
+            <div class = 'col-md-4'>
+                {% include 'sms_app/new_template_form.html' with show_title=False %}
+            </div>
             <div class = 'col-md-4'>
                 Query users : 
                 <form method = 'GET' action = #>

@@ -1,44 +1,65 @@
-<div class = 'col-md-4'>
-    <form action = '#' method = 'POST'>
-        {% csrf_token %}
-        <div id = "sms_form">
-            <textarea id = 'sms_template' name = 'sms_template'> {{ sms_template }} </textarea>
-            <input type = 'submit' id = 'submit'>
+<div class = 'container'>
+    <div class = 'row'>
+        <form action = '#' method = 'POST'>
+            {% csrf_token %}
+            <div id = "sms_form">
+                <div class = 'container'>
+                    {% if show_title %}
+                        <div class = 'row'>
+                            <div class = 'col-md-4'>
+                                <input type = 'text' id = 'template_title' name = 'template_title' placeholder = 'Insert title here'>
+                            </div>
+                        </div>
+                    {% endif %}
+                    <div class = 'row'>
+                        <div class = 'col-md-4'>
+                            <textarea id = 'sms_template' name = 'sms_template'> {{ sms_template }} </textarea>
+                        </div>
+                    </div>
+                    <div class = 'row'>
+                        <div class = 'col-md-4'>
+                            <input type = 'submit' id = 'submit' value = 'Submit new template'>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class = 'row'>
+        <div class = 'col-md-4'>    
+            {% csrf_token %}
+            <div id = "sms_form_test">
+                <textarea id = 'sms_template_test' name = 'sms_template_test' readonly></textarea>
+            </div>
         </div>
-    </form>
-</div>
-<div class = 'col-md-4'>
-        {% csrf_token %}
-        <div id = "sms_form_test">
-            <textarea id = 'sms_template_test' name = 'sms_template_test' readonly></textarea>
-        </div>
-    <script type = 'text/javascript'>
-        old_template = $('#sms_template').text()
-        replace_tags(old_template)
-        
-        
-        $('#sms_template').bind('input propertychange', function(){
-            replace_tags(this.value)
-        });
-        
-        function replace_tags(old_template)
-        {
-        
-            tags = {};
-            tags['<name>'] = "{{ test_contact.name }}"
-            tags['<address>'] = "{{ test_contact.address }}"
-            tags['<contact_name>'] = "{{ test_contact.contact_name }}"
-            tags['<balance>'] = "{{ test_contact.balance }}"
-            tags['<contact_type>'] = "{{ test_contact.contact_type }}"
-           
-            new_template = old_template
-            for (var tag in tags)
-            {
-                var re = new RegExp(tag, 'g')
-                new_template = new_template.replace(re, tags[tag]);
-            }
+    </div>
+        <script type = 'text/javascript'>
+            old_template = $('#sms_template').text()
+            replace_tags(old_template)
             
-            $('#sms_template_test').val(new_template);
-        }
-    </script>                
+            
+            $('#sms_template').bind('input propertychange', function(){
+                replace_tags(this.value)
+            });
+            
+            function replace_tags(old_template)
+            {
+            
+                tags = {};
+                tags['<name>'] = "{{ test_contact.name }}"
+                tags['<address>'] = "{{ test_contact.address }}"
+                tags['<contact_name>'] = "{{ test_contact.contact_name }}"
+                tags['<balance>'] = "{{ test_contact.balance }}"
+                tags['<contact_type>'] = "{{ test_contact.contact_type }}"
+               
+                new_template = old_template
+                for (var tag in tags)
+                {
+                    var re = new RegExp(tag, 'g')
+                    new_template = new_template.replace(re, tags[tag]);
+                }
+                
+                $('#sms_template_test').val(new_template);
+            }
+        </script>                
 </div>

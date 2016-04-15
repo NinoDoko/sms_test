@@ -2,9 +2,9 @@
 {% block vap_content %}
     <div class = 'container'>
         <div class = 'row'>
-            <div class = 'container'>
+            <div class = 'col-md-4'>
                 Create a new template
-                {% include 'sms_app/new_template_form.html' %}
+                {% include 'sms_app/new_template_form.html' with show_title=True %}
             </div>
             <div class = 'col-md-8'>
                 Created templates
