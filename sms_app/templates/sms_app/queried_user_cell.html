@@ -1,8 +1,11 @@
 <div class = "sms_template_cell">
   <li class = list-group-item>
   {{ user.name }} {{ user.phone_number }}
+  <input type = 'checkbox' name = '{{ user.name }}'>
   </br>
   {{ user.address}} {{ user.balance }}
+  {% if checkbox %}
+  {% endif %}
   </li>                  
 </div>
 

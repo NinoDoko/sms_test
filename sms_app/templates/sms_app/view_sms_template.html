@@ -2,7 +2,7 @@
 {% block vap_head %}
     <style type = 'text/css'>
         #sms_template, #sms_template_test{
-          width:80%;
+          width:100%;
           height:20%;
         }
 
@@ -14,7 +14,7 @@
             <div class = 'col-md-4'>
                 {% include 'sms_app/new_template_form.html' with show_title=False %}
             </div>
-            <div class = 'col-md-4'>
+            <div class = 'col-md-2'>
                 Query users : 
                 <form method = 'GET' action = #>
                     <input type = 'text' name = 'name' placeholder = 'name'>
@@ -25,10 +25,15 @@
                     <input type = 'radio' name = 'contact_type' value = 'business'>Business</br>
                     <input type = 'submit'>
                 </form>
-                {% for user in queried_users %}
-                    {% include "sms_app/queried_user_cell.html" %}
-                {% endfor %}
-                <a href = "{% url 'sms_app:send_sms' %}" class = 'button'> Send messages </a>
+            </div>
+            <div class = 'col-md-6'>
+                <form action = "{% url 'sms_app:send_sms' sms_template.id %}" method = 'POST' >
+                    {% csrf_token %}
+                    {% for user in queried_users %}
+                        {% include "sms_app/queried_user_cell.html" with checkbox=True %}
+                    {% endfor %}
+                    <input type = 'submit' value = 'Send messages'> 
+                </form>
             </div>
         </div>
     </div>

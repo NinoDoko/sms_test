@@ -40,10 +40,13 @@ def view_sms_template(request, sms_id):
         old_template.template_text = request.POST.get('sms_template')
         old_template.save()
     users = query_users_from_get_args(request, users)
-    return render(request, 'sms_app/view_sms_template.html', {'sms_template' : old_template.template_text, 'test_contact' : test_contact, 'queried_users' : users})
+    return render(request, 'sms_app/view_sms_template.html', {'sms_template' : old_template, 'test_contact' : test_contact, 'queried_users' : users})
     
 @login_required
-def send_sms(request):
-    users = query_users_from_get_args(request, Contact.objects.all())
-    print '\n'.join(['Texting ' + x.name + ' with phone number ' + x.phone_number for x in users])
+def send_sms(request, sms_id):
+    users = []
+    users = [user for user in Contact.objects.all() if user.name in request.POST]
+    users = query_users_from_get_args(request, users)
+    template = MessageTemplate.objects.all().filter(pk = sms_id)[0]
+    print '\n'.join(['Texting ' + x.name + ' with phone number ' + x.phone_number + ' with message : ' + template.template_text for x in users])
     return redirect('sms_app:sms_template_index')
