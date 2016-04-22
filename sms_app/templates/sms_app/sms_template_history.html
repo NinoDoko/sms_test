@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block vap_content %}
+    <table class = 'table'>
+        <tr>
+            <th>
+                Title
+            </th>
+            <th>
+                Date sent
+            </th>
+            <th>
+                Sent to:
+            </th>
+        </tr>
+    {% for history in sms_history %}
+        <tr>
+            <td>
+                {{ history.message_template.template_title }}
+            </td>
+            <td>
+                {{ history.sent_date }}
+            </td>
+            <td>
+                <button id = 'view_users_{{forloop.counter}}'> View users </button>
+                <div class = 'users_list_{{forloop.counter}}'>
+                    {% for user in history.sent_to_users.all %}
+                            {{ user.contact_name }}
+                            </br>
+                    {% endfor %}
+                </div>
+                <script type = 'text/javascript'>
+                    $('.users_list_{{forloop.counter}}').toggle()
+                    $('#view_users_{{forloop.counter}}').click(function(){
+                        $('.users_list_{{forloop.counter}}').toggle()
+                    })
+                </script>
+            </td>
+    {% endfor %}
+    </table>
+{% endblock %}
+

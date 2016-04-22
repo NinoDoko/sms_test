@@ -28,5 +28,5 @@ class MessageTemplate(models.Model):
 
 class MessageTemplateSendHistory(models.Model):
     message_template = models.ForeignKey('MessageTemplate')
-#    sent_to_users = models.ForeignKey('Contact')
+    sent_to_users = models.ManyToManyField(Contact)
     sent_date = models.DateTimeField()
