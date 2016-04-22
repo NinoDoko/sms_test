@@ -26,4 +26,7 @@ class MessageTemplate(models.Model):
     def __unicode__(self):
         return self.template_title
 
-# Create your models here.
+class MessageTemplateSendHistory(models.Model):
+    message_template = models.ForeignKey('MessageTemplate')
+#    sent_to_users = models.ForeignKey('Contact')
+    sent_date = models.DateTimeField()

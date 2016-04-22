@@ -1,8 +1,9 @@
+import datetime
 from django.contrib import messages
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
-from sms_app.models import Contact, MessageTemplate
+from sms_app.models import *
 
 def query_users_from_get_args(request, users):
     if request.GET :
@@ -63,4 +64,6 @@ def send_sms(request, sms_id):
     users = query_users_from_get_args(request, users)
     template = MessageTemplate.objects.all().filter(pk = sms_id)[0]
     print '\n'.join(['Texting ' + x.name + ' with phone number ' + x.phone_number + ' with message : ' + replace_tags(template, x) for x in users])
+    sent_template = MessageTemplateSendHistory(message_template = template, sent_date = datetime.datetime.now(), )
+    sent_template.save()
     return redirect('sms_app:sms_template_index')
