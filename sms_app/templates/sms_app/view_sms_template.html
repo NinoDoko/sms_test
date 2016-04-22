@@ -20,8 +20,11 @@
                     <input type = 'text' name = 'name' placeholder = 'name'>
                     <input type = 'text' name = 'address' placeholder = 'address'>
                     <input type = 'text' name = 'balance' placeholder = 'balance'>
+                    <input type = 'radio' name = 'balance_operator' value = 'gte'>>=
+                    <input type = 'radio' name = 'balance_operator' value = 'lte'><=
+                    <input type = 'radio' name = 'balance_operator' value = '' checked = 'checked'>=
                     <input type = 'text' name = 'phone_number' placeholder = 'phone_number'></br>
-                    <input type = 'radio' name = 'contact_type' value = 'private'>Private
+                    <input type = 'radio' name = 'contact_type' value = 'private' >Private
                     <input type = 'radio' name = 'contact_type' value = 'business'>Business</br>
                     <input type = 'submit'>
                 </form>
@@ -29,6 +32,19 @@
             <div class = 'col-md-6'>
                 <form action = "{% url 'sms_app:send_sms' sms_template.id %}" method = 'POST' >
                     {% csrf_token %}
+                    <label>
+                        <input type = "checkbox" name = "select_all_sms_templates" id = "select_all_sms_templates"> 
+                            Select/deselect all users
+                    </label>
+                    <script type = "text/javascript">
+                        $('#select_all_sms_templates').click(function(event){
+                            all_checked = this.checked
+                            $(':checkbox').each(function() {
+                                this.checked = all_checked
+                            })
+                        })
+                    </script>
+
                     {% for user in queried_users %}
                         {% include "sms_app/queried_user_cell.html" with checkbox=True %}
                     {% endfor %}

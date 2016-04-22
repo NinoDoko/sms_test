@@ -19,7 +19,7 @@
                 Created templates
                 {% for sms_template in sms_templates %}
                     {{ sms_template.text }}
-                    {% include 'sms_app/template_cell.html' %}
+                    {% include 'sms_app/template_cell.html' with enable_delete=True %}
                 {% endfor %}
             </div>
         </div>

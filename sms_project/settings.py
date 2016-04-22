@@ -22,7 +22,17 @@ SECRET_KEY = '!1wa!r*pg4(rgk3t0mji2*7nknelc98e=r@cwmf#y1!z2dgm$m'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+PROJECT_PATH = os.path.realpath(os.path.dirname(__file__))
+
 TEMPLATE_DEBUG = True
+TEMPLATE_DIRS = (
+    BASE_DIR + '/sms_project/templates',
+)
+TEMPLATE_LOADERS = ( 
+    'django.template.loaders.filesystem.Loader', 
+    'django.template.loaders.app_directories.Loader',
+)
+
 
 ALLOWED_HOSTS = []
 

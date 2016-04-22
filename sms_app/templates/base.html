@@ -43,7 +43,7 @@
             <ul class="nav navbar-nav">
               <li><a href="{% url "sms_app:sms_template_index"%}">Manage SMS templates</a></li>
               <li><a href="#">More stuff</a></li>
-              <li><a href="/admin/auth/user/">Manage users</a></li>
+              <li><a href="{% url "admin:sms_app_contact_changelist" %}">Manage users</a></li>
               <li><a href="{% url "sms_app:logout"%}">Log out</a></li>
             </ul>
             {% if messages %}

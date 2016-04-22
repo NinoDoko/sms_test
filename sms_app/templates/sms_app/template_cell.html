@@ -1,5 +1,19 @@
+<style type = "text/css">
+    .sms_template_cell_right{
+        float: right;
+    }
+</style>
+
 <div class = "sms_template_cell">
-  <li class = list-group-item><a href = "{% url "sms_app:view_sms_template" sms_template.pk %}"> {{ sms_template.template_title }} </a>
+  <li class = list-group-item>
+    <a href = "{% url "sms_app:view_sms_template" sms_template.pk %}"> 
+        {{ sms_template.template_title }} 
+    </a>
+    {% if enable_delete %}
+        <div class = 'sms_template_cell_right'>
+            <a href = "{% url "sms_app:delete_sms_template" sms_template.pk %}">x</a>
+        </div>
+    {% endif %}
   </br>
   {{ sms_template.template_text }} </li>                  
 </div>

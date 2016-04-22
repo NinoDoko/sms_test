@@ -46,12 +46,19 @@
             {
             
                 tags = {};
+                {% for key, value in test_contact.attrs %}
+                    tags['<{{ key }}>'] = "{{ value }}"
+                {% endfor %}
+                /*
                 tags['<name>'] = "{{ test_contact.name }}"
                 tags['<address>'] = "{{ test_contact.address }}"
                 tags['<contact_name>'] = "{{ test_contact.contact_name }}"
                 tags['<balance>'] = "{{ test_contact.balance }}"
                 tags['<contact_type>'] = "{{ test_contact.contact_type }}"
-               
+                tags['<contact_name>'] = "{{ test_contact.contact_name }}"
+                tags['<contact_last_name>'] = "{{ test_contact.contact_last_name }}"
+                tags['<contact_phone_number>'] = "{{ test_contact.contact_phone_number }}"
+                */             
                 new_template = old_template
                 for (var tag in tags)
                 {
@@ -62,4 +69,5 @@
                 $('#sms_template_test').val(new_template);
             }
         </script>                
+
 </div>
