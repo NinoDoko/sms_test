@@ -15,7 +15,9 @@
     {% for history in sms_history %}
         <tr>
             <td>
-                {{ history.message_template.template_title }}
+                <a href = '{% url 'sms_app:view_sms_template' history.message_template.pk %}'>
+                    {{ history.message_template.template_title }}
+                </a>
             </td>
             <td>
                 {{ history.sent_date }}
@@ -24,7 +26,9 @@
                 <button id = 'view_users_{{forloop.counter}}'> View users </button>
                 <div class = 'users_list_{{forloop.counter}}'>
                     {% for user in history.sent_to_users.all %}
-                            {{ user.contact_name }}
+                            <a href = '{% url 'admin:sms_app_contact_change' user.pk %}'>
+                                {{ user.contact_name }}
+                            </a>
                             </br>
                     {% endfor %}
                 </div>
