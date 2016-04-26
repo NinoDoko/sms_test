@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block vap_content %}
+    <table class = 'table bordered'>
+        <tr>
+            <th>
+                Date
+            </th>
+            <th>
+                User
+            </th>
+            <th>
+                Number
+            </th>
+            <th>
+                Message
+            </th>
+        </tr>
+    {% for error in log_message_errors %}
+        <tr>
+            <td>
+                {{ error.date }}
+            </td>
+            <td>
+                <a href = '{% url 'admin:sms_app_contact_change' error.user.pk %}'>
+                    {{ error.user.contact_name }}
+                </a>
+            </td>
+            <td>
+                {{ error.number }}
+            </td>
+            <td>
+                {{ error.message }}
+            </td>
+    {% endfor %}
+    </table>
+{% endblock %}
+

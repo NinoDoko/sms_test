@@ -1,4 +1,4 @@
-import datetime
+import datetime, subprocess
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect
 from sms_app.models import *
@@ -35,7 +35,13 @@ def send_sms(request, sms_id):
     users = [user for user in Contact.objects.all() if user.name in request.POST]
     users = query_users_from_get_args(request, users)
     template = MessageTemplate.objects.all().filter(pk = sms_id)[0]
-    print '\n'.join(['Texting ' + x.name + ' with phone number ' + x.phone_number + ' with message : ' + replace_tags(template, x) for x in users])
+    messages = [(x.phone_number, replace_tags(template, x)) for x in users] 
+    for message in messages: 
+        command = ['sendsms', message[0], message[1]]
+        print 'Message : ', subprocess.list2cmdline(command)
+        s = subprocess.call(command)
+#        print 'Sent message ', message, ' received : ', s
+
     sent_template = MessageTemplateSendHistory(message_template = template, sent_date = datetime.datetime.now())
     sent_template.save()
     sent_template.sent_to_users.add(*users)

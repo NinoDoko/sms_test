@@ -23,21 +23,7 @@
                 {{ history.sent_date }}
             </td>
             <td>
-                <button id = 'view_users_{{forloop.counter}}'> View users </button>
-                <div class = 'users_list_{{forloop.counter}}'>
-                    {% for user in history.sent_to_users.all %}
-                            <a href = '{% url 'admin:sms_app_contact_change' user.pk %}'>
-                                {{ user.contact_name }}
-                            </a>
-                            </br>
-                    {% endfor %}
-                </div>
-                <script type = 'text/javascript'>
-                    $('.users_list_{{forloop.counter}}').toggle()
-                    $('#view_users_{{forloop.counter}}').click(function(){
-                        $('.users_list_{{forloop.counter}}').toggle()
-                    })
-                </script>
+                <a href = "{% url 'sms_app:sms_template_stats' history.pk %}" id = 'view_users_{{forloop.counter}}'> View users </a>
             </td>
     {% endfor %}
     </table>
