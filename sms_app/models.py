@@ -26,10 +26,10 @@ class MessageTemplate(models.Model):
     def __unicode__(self):
         return self.template_title
         
+
 class MessageTemplateAutoReply(MessageTemplate):
-    template_type_choices = [('template_for_sending', 'template_for_sending'), ('template_auto_reply', 'template_auto_reply')]
-    template_type = models.CharField(max_length = 20, choices = template_type_choices, default = 'template_for_sending')
-    response_message = models.ForeignKey('MessageTemplate', related_name = 'automated_reply_to_template')
+    received_text = models.CharField(max_length = 200, default = 'Sample text')
+
     
 class MessageTemplateSendHistory(models.Model):
     message_template = models.ForeignKey('MessageTemplate')

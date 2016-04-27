@@ -15,13 +15,19 @@
                 Create a new template
                 {% include 'sms_app/new_template_form.html' with show_title=True %}
             </div>
-            <div class = 'col-md-8'>
+            <div class = 'col-md-4'>
                 Created templates
                 {% for sms_template in sms_templates %}
-                    {{ sms_template.text }}
                     {% include 'sms_app/template_cell.html' with enable_delete=True %}
                 {% endfor %}
             </div>
+            <div class = 'col-md-4'>
+                Automatic replies
+                {% for sms_template in auto_replies %}
+                    {% include 'sms_app/template_cell.html' with enable_delete=True %}
+                {% endfor %}
+            </div>
+
         </div>
     </div>
 {% endblock %}

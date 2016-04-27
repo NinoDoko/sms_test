@@ -13,8 +13,9 @@ def sms_template_index(request):
         new_template = MessageTemplate(template_text = request.POST['sms_template'], template_title = request.POST['template_title'])
         if new_template.save():
             messages.success(request, 'Template saved successfuly')
-    sms_templates = MessageTemplate.objects.all()
-    return render(request, 'sms_app/sms_template_index.html', {'sms_templates' : sms_templates, 'test_contact' : test_contact})
+    auto_replies = MessageTemplateAutoReply.objects.all()
+    sms_templates = [x for x in MessageTemplate.objects.all() if x.pk not in [y.pk for y in auto_replies]]
+    return render(request, 'sms_app/sms_template_index.html', {'sms_templates' : sms_templates, 'auto_replies' : auto_replies, 'test_contact' : test_contact})
     
 def log_out(request):
     logout(request)

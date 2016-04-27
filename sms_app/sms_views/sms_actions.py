@@ -35,14 +35,20 @@ def send_sms(request, sms_id):
     users = [user for user in Contact.objects.all() if user.name in request.POST]
     users = query_users_from_get_args(request, users)
     template = MessageTemplate.objects.all().filter(pk = sms_id)[0]
-    messages = [(x.phone_number, replace_tags(template, x)) for x in users] 
-    for message in messages: 
-        command = ['sendsms', message[0], message[1]]
-        print 'Message : ', subprocess.list2cmdline(command)
-        s = subprocess.call(command)
-#        print 'Sent message ', message, ' received : ', s
+    
+    smstools_send_messages(template, users)
 
     sent_template = MessageTemplateSendHistory(message_template = template, sent_date = datetime.datetime.now())
     sent_template.save()
     sent_template.sent_to_users.add(*users)
     return redirect('sms_app:sms_template_index')
+    
+    
+def smstools_send_messages(template, users):
+    messages = [(x.phone_number, replace_tags(template, x)) for x in users] 
+    for message in messages: 
+        command = ['sendsms', message[0], message[1]]
+        print 'Message : ', subprocess.list2cmdline(command)
+#        s = subprocess.call(command)
+#        print 'Sent message ', message, ' received : ', s
+

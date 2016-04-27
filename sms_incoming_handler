@@ -1,3 +1,8 @@
 #!/bin/bash
 
-python manage.py sms_incoming_python $2
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+if [ "$1" = "RECEIVED" ]
+    then
+        python $DIR/manage.py sms_incoming_python $2
+fi
