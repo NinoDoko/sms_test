@@ -10,7 +10,10 @@ def sms_template_index(request):
     users = Contact.objects.all()
     test_contact = users.all().filter(name = 'Test')[0]
     if request.POST : 
-        new_template = MessageTemplate(template_text = request.POST['sms_template'], template_title = request.POST['template_title'])
+        if request.POST['view_received_text']:
+            new_template = MessageTemplateAutoReply(template_text = request.POST['sms_template'], template_title = request.POST['template_title'], received_text = request.POST['received_text'])
+        else:
+            new_template = MessageTemplate(template_text = request.POST['sms_template'], template_title = request.POST['template_title'])
         if new_template.save():
             messages.success(request, 'Template saved successfuly')
     auto_replies = MessageTemplateAutoReply.objects.all()

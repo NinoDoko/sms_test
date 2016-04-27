@@ -16,6 +16,25 @@
                             <textarea id = 'sms_template' name = 'sms_template'> {{ sms_template.template_text }} </textarea>
                         </div>
                     </div>
+                    {% if not hide_received_text %}
+                    <div class = 'row'>
+                        <div class = 'col-md-4'>
+                            <input type = 'checkbox' id = 'view_received_text' name = 'view_received_text'>Make/change an auto reply
+                        </div>
+                    </div>
+                    <div class = 'row'>
+                        <div class = 'col-md-4'>
+                            <textarea id = 'received_text' name = 'received_text'>{{ sms_template.received_text }}</textarea>
+                        </div>
+                    </div>
+                    <script type = 'text/javascript'>
+                        $('#received_text').hide()
+                        $('#view_received_text').val(false)
+                        $('#view_received_text').change(function(){
+                            $('#received_text').toggle()
+                        })
+                    </script>
+                    {% endif %}
                     <div class = 'row'>
                         <div class = 'col-md-4'>
                             <input type = 'submit' id = 'submit' value = 'Submit new template'>

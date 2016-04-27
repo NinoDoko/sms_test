@@ -12,7 +12,7 @@
     <div class = 'container'>
         <div class = 'row'>
             <div class = 'col-md-4'>
-                {% include 'sms_app/new_template_form.html' with show_title=False %}
+                {% include 'sms_app/new_template_form.html' with show_title=False hide_received_text=template_is_not_reply %}
             </div>
             <div class = 'col-md-2'>
                 Query users : 
