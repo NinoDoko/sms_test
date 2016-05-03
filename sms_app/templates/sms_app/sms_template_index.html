@@ -28,7 +28,9 @@
             <div class = 'col-md-4'>
                 <div id = 'template_help_div' style="display:none">
                     <div id = 'template_help_contents'>
-                        <p>Write the text you want to be sent to the users. You can use tags to replace for user attributes. </p>
+                        <p>
+                            Write the text you want to be sent to the users. You can use tags to replace for user attributes. 
+                        </p>
                         <ul>
                             <li> &ltcontact_name&gt will be replaced with the contact's name</li>
                             <li> &ltcontact_last_name&gt will be replaced with the contact's last name</li>
@@ -37,9 +39,12 @@
                             <li> &ltcontact_type&gt will be replaced with the contact's type (private or business)</li>
                             <li> &ltaddress&gt will be replaced with the contact's e-mail address</li>
                         </ul>
+                        <p>
+                            Creating an auto-reply template, with a received text value, will automatically reply to all messages with the exact same 'received_text' value, using the template, still substituting the user attributes. You can use auto-reply templates as ordinary tempates too. 
+                        </p>
                     </div>
                 </div>
-                <p>Create a new template <a href = '#template_help_div' rel="modal:open" id = 'template_help'>? </a></p>
+                <p>Create a new template <a href = '#template_help_div' rel="modal:open" id = 'template_help'><i class="fa fa-question-circle-o" aria-hidden="true"></i></a></p>
                 {% include 'sms_app/new_template_form.html' with show_title=True %}
             </div>
             <div class = 'col-md-4'>

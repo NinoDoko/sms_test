@@ -12,11 +12,14 @@
     </a>
     {% if enable_delete %}
         <div class = 'sms_template_cell_right'>
-            <a href = "{% url "sms_app:delete_sms_template" sms_template.pk %}">x</a></br>
+            <a href = "{% url "sms_app:delete_sms_template" sms_template.pk %}" title = 'Delete template'><i class="fa fa-times" aria-hidden="true"></i>
+</a></br>
             {% if sms_template.received_text %}
-                <a href = "{%url "sms_app:remove_auto_reply" sms_template.pk %}"><font size = '1'>Remove auto reply</font></a>
+                <a href = "{%url "sms_app:remove_auto_reply" sms_template.pk %}" title = "Remove auto reply"><i class="fa fa-minus" aria-hidden="true"></i>
+</a>
             {% else %}
-                <a href = "{%url "sms_app:add_auto_reply" sms_template.pk %}"><font size = '1'>Add auto reply</font></a>
+                <a href = "{%url "sms_app:add_auto_reply" sms_template.pk %}" title = "Use as auto reply"><i class="fa fa-reply" aria-hidden="true"></i>
+</a>
             {% endif %}
         </div>
 
