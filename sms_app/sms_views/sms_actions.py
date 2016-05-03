@@ -42,6 +42,28 @@ def send_sms(request, sms_id):
     sent_template.save()
     sent_template.sent_to_users.add(*users)
     return redirect('sms_app:sms_template_index')
+
+
+def add_auto_reply(request, sms_id):
+    return manage_auto_reply(request, 'add', sms_id)
+
+def remove_auto_reply(request, sms_id):
+    return manage_auto_reply(request, 'remove', sms_id)
+
+def manage_auto_reply(request, action, sms_id):
+    if action == 'add':
+        old_template = MessageTemplate.objects.get(pk = sms_id)
+        new_template = MessageTemplateAutoReply(template_title=old_template.template_title, template_text = old_template.template_text, received_text = '')
+        old_template.delete()
+        new_template.save()
+        return redirect('sms_app:view_sms_template', new_template.pk )
+    elif action == 'remove':
+        old_template = MessageTemplateAutoReply.objects.get(pk = sms_id)
+        new_template = MessageTemplate(template_title=old_template.template_title, template_text = old_template.template_text)
+        old_template.delete()
+        new_template.save()
+        return redirect('sms_app:sms_template_index')
+    else: raise Exception('Unknown action : ', action)    
     
     
 def smstools_send_messages(template, users):
