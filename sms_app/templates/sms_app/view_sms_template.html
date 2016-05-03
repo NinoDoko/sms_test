@@ -44,10 +44,21 @@
                             })
                         })
                     </script>
-
-                    {% for user in queried_users %}
-                        {% include "sms_app/queried_user_cell.html" with checkbox=True %}
-                    {% endfor %}
+                    <a id = 'view_queried_users'>
+                        View users
+                    </a>
+                    </br>
+                    <div class = 'queried_users btn-default'>
+                        {% for user in queried_users %}
+                            {% include "sms_app/queried_user_cell.html" with checkbox=True %}
+                        {% endfor %}
+                    </div>
+                    <script type = 'text/javascript'>
+                        $('.queried_users').hide()
+                        $('#view_queried_users').click(function(event){
+                            $('.queried_users').toggle()
+                        })
+                    </script>
                     <input type = 'submit' value = 'Send messages'> 
                 </form>
             </div>
