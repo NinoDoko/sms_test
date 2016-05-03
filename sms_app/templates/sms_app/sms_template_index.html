@@ -2,8 +2,22 @@
 {% block vap_head %}
     <style type = 'text/css'>
         #sms_template, #sms_template_test{
-          width:80%;
-          height:20%;
+            width:80%;
+            height:20%;
+        }
+        
+        #template_help_div{
+            left:20%;
+            top:15%;
+            width:30%;
+            bottom:auto;
+            border: 2px solid #73AD21;
+            border-radius: 25px;
+            background-color:white;
+        }
+        
+        #template_help_contents{
+            margin:15px;
         }
 
     </style>
@@ -12,7 +26,20 @@
     <div class = 'container'>
         <div class = 'row'>
             <div class = 'col-md-4'>
-                Create a new template
+                <div id = 'template_help_div' style="display:none">
+                    <div id = 'template_help_contents'>
+                        <p>Write the text you want to be sent to the users. You can use tags to replace for user attributes. </p>
+                        <ul>
+                            <li> &ltcontact_name&gt will be replaced with the contact's name</li>
+                            <li> &ltcontact_last_name&gt will be replaced with the contact's last name</li>
+                            <li> &ltbalance&gt will be replaced with the contact's balance</li>
+                            <li> &ltphone_number&gt will be replaced with the contact's phone number</li>
+                            <li> &ltcontact_type&gt will be replaced with the contact's type (private or business)</li>
+                            <li> &ltaddress&gt will be replaced with the contact's e-mail address</li>
+                        </ul>
+                    </div>
+                </div>
+                <p>Create a new template <a href = '#template_help_div' rel="modal:open" id = 'template_help'>? </a></p>
                 {% include 'sms_app/new_template_form.html' with show_title=True %}
             </div>
             <div class = 'col-md-4'>
