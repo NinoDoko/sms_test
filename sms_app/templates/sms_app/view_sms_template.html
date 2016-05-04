@@ -5,7 +5,14 @@
           width:100%;
           height:20%;
         }
-
+        
+        .users_query #name, .users_query #address, .users_query #phone_number{
+            width:100%;
+        }
+        
+        .query_elements_match_width{
+            width:100%;
+        }
     </style>
 {% endblock %}
 {% block vap_content %}
@@ -14,22 +21,22 @@
             <div class = 'col-md-4'>
                 {% include 'sms_app/new_template_form.html' with show_title=False hide_received_text=template_is_not_reply tempalte_is_reply=template_is_not_reply%}
             </div>
-            <div class = 'col-md-2'>
+            <div class = 'col-md-4 users_query'>
                 Query users : 
                 <form method = 'GET' action = #>
-                    <input type = 'text' name = 'name' placeholder = 'name'>
-                    <input type = 'text' name = 'address' placeholder = 'address'>
+                    <input id = 'name' type = 'text' name = 'name' placeholder = 'name'>
+                    <input id = 'address' type = 'text' name = 'address' placeholder = 'address'>
+                    <input id = 'phone_number' type = 'text' name = 'phone_number' placeholder = 'phone_number'></br>
                     <input type = 'text' name = 'balance' placeholder = 'balance'>
                     <input type = 'radio' name = 'balance_operator' value = 'gte'>>=
                     <input type = 'radio' name = 'balance_operator' value = 'lte'><=
-                    <input type = 'radio' name = 'balance_operator' value = '' checked = 'checked'>=
-                    <input type = 'text' name = 'phone_number' placeholder = 'phone_number'></br>
+                    <input type = 'radio' name = 'balance_operator' value = '' checked = 'checked'>=</br>
                     <input type = 'radio' name = 'contact_type' value = 'private' >Private
                     <input type = 'radio' name = 'contact_type' value = 'business'>Business</br>
                     <input type = 'submit'>
                 </form>
             </div>
-            <div class = 'col-md-6'>
+            <div class = 'col-md-4'>
                 <form action = "{% url 'sms_app:send_sms' sms_template.id %}" method = 'POST' >
                     {% csrf_token %}
                     <label>
@@ -44,7 +51,7 @@
                             })
                         })
                     </script>
-                    <a id = 'view_queried_users'>
+                    <a href = '#' id = 'view_queried_users'>
                         View users
                     </a>
                     </br>

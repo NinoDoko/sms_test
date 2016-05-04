@@ -1,24 +1,43 @@
-<div class = 'container'>
+<style type = 'text/css'>
+    .new_sms_template{
+        width:auto;
+    }
+
+    .edit_sms_form{
+        width:auto
+    }
+    
+    .sms_test{
+        width:100%;
+    }
+    
+    .new_sms_text{
+        width:100%;
+    }
+    
+</style>
+
+<div class = 'container new_sms_template'>
     <div class = 'row'>
         <form action = '#' method = 'POST'>
             {% csrf_token %}
             <div id = "sms_form">
-                <div class = 'container'>
+                <div class = 'container edit_sms_form'>
                     {% if show_title %}
                         <div class = 'row'>
-                            <div class = 'col-md-4'>
+                            <div class = 'col-md-4 new_sms_title'>
                                 <input type = 'text' id = 'template_title' name = 'template_title' placeholder = 'Insert title here'>
                             </div>
                         </div>
                     {% endif %}
                     <div class = 'row'>
-                        <div class = 'col-md-4'>
+                        <div class = 'col-md-4 new_sms_text'>
                             <textarea id = 'sms_template' name = 'sms_template'>{{ sms_template.template_text }}</textarea>
                         </div>
                     </div>
                     {% if not hide_received_text %}
                     <div class = 'row'>
-                        <div class = 'col-md-4'>
+                        <div class = 'col-md-4 sms_received_text'>
                             <input type = 'checkbox' id = 'view_received_text' name = 'view_received_text'>Make/change an auto reply
                         </div>
                     </div>
@@ -51,7 +70,7 @@
         </form>
     </div>
     <div class = 'row'>
-        <div class = 'col-md-4'>    
+        <div class = 'col-md-4 sms_test'>    
             {% csrf_token %}
             <div id = "sms_form_test">
                 <textarea id = 'sms_template_test' name = 'sms_template_test' readonly></textarea>
