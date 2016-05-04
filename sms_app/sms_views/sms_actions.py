@@ -53,13 +53,13 @@ def remove_auto_reply(request, sms_id):
 def manage_auto_reply(request, action, sms_id):
     if action == 'add':
         old_template = MessageTemplate.objects.get(pk = sms_id)
-        new_template = MessageTemplateAutoReply(template_title=old_template.template_title, template_text = old_template.template_text, received_text = '')
+        new_template = MessageTemplateAutoReply.create_from_template(old_template, '')
         old_template.delete()
         new_template.save()
         return redirect('sms_app:view_sms_template', new_template.pk )
     elif action == 'remove':
         old_template = MessageTemplateAutoReply.objects.get(pk = sms_id)
-        new_template = MessageTemplate(template_title=old_template.template_title, template_text = old_template.template_text)
+        new_template = MessageTemplate.create_from_reply(old_template)
         old_template.delete()
         new_template.save()
         return redirect('sms_app:sms_template_index')
