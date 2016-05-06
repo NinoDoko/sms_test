@@ -16,8 +16,23 @@
             background-color:white;
         }
         
+        #auto_reply_help_div{
+            left:60%;
+            top:15%;
+            width:30%;
+            bottom:auto;
+            border: 2px solid #73AD21;
+            border-radius: 25px;
+            background-color:white;
+        }
+        
+        
         #template_help_contents{
             margin:15px;
+        }
+
+        #auto_reply_help_contents{
+            margin:5px;
         }
 
     </style>
@@ -54,7 +69,16 @@
                 {% endfor %}
             </div>
             <div class = 'col-md-4'>
-                Automatic replies
+                <div id = 'auto_reply_help_div' style="display:none">
+                    <div id = 'auto_reply_help_contents'>
+                        <p>
+                            Automatic replies have a received_text attribute that, when received by the modem, will automatically reply with the specified template. These templates can also be used as standard templates. 
+                        </p>
+                    </div>
+                </div>
+
+                Automatic replies <a href = '#auto_reply_help_div' rel="modal:open" id = 'auto_reply_help'><i class="fa fa-question-circle-o" aria-hidden="true"></i></a>
+                
                 {% for sms_template in auto_replies %}
                     {% include 'sms_app/template_cell.html' with enable_delete=True %}
                 {% endfor %}
