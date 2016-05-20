@@ -34,6 +34,7 @@ class MessageTemplate(models.Model):
 
 class MessageTemplateAutoReply(MessageTemplate):
     received_text = models.CharField(max_length = 200, default = 'Sample text')
+    subscribed_users = models.ManyToManyField(Contact, blank = True)
     
     @classmethod
     def create_from_template(cls, template, received_text):

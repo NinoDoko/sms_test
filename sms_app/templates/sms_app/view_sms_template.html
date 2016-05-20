@@ -37,7 +37,7 @@
                 </form>
             </div>
             <div class = 'col-md-4'>
-                <form action = "{% url 'sms_app:send_sms' sms_template.id %}" method = 'POST' >
+                <form action = "{% url 'sms_app:sms_template_action' sms_template.id %}" method = 'POST' >
                     {% csrf_token %}
                     <label>
                         <input type = "checkbox" name = "select_all_sms_templates" id = "select_all_sms_templates"> 
@@ -66,7 +66,8 @@
                             $('.queried_users').toggle()
                         })
                     </script>
-                    <input type = 'submit' value = 'Send messages'> 
+                    <input type = 'submit' name = 'send_messages' value = 'Send messages'> 
+                    <input type = 'submit' name = 'subscribe_users' value = 'Subscribe users'> 
                 </form>
             </div>
         </div>

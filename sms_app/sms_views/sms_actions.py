@@ -24,6 +24,14 @@ def replace_tags(template, user):
         text = text.replace(tag, str(getattr(user, tag[1:-1])))
     return text
 
+
+def sms_action(request, sms_id):
+    if request.POST.get('send_messages'):
+        return send_sms(request, sms_id)
+    elif request.POST.get('subscribe_users'):
+        return subscribe_users(request, sms_id)
+    raise Exception('Invalid sms action POST.')
+
 def delete_sms_template(request, sms_id):
     template = MessageTemplate.objects.all().filter(pk = sms_id)[0]
     template.delete()
@@ -39,8 +47,8 @@ def send_sms(request, sms_id):
     smstools_send_messages(template, users)
 
     sent_template = MessageTemplateSendHistory(message_template = template, sent_date = datetime.datetime.now())
-    sent_template.sent_to_users.add(*users)
     sent_template.save()
+    sent_template.sent_to_users.add(*users)
     return redirect('sms_app:sms_template_index')
 
 
@@ -65,12 +73,20 @@ def manage_auto_reply(request, action, sms_id):
         return redirect('sms_app:sms_template_index')
     else: raise Exception('Unknown action : ', action)    
     
-    
+def subscribe_users(request, sms_id):
+    template = MessageTemplateAutoReply.objects.get(pk = sms_id)
+    template.subscribed_users.clear()
+    users = [user for user in Contact.objects.all() if user.name in request.POST]
+    for u in users:
+        template.subscribed_users.add(u)
+    template.save()
+    return redirect('sms_app:view_sms_template', sms_id)
+        
 def smstools_send_messages(template, users):
     messages = [(x.phone_number, replace_tags(template, x)) for x in users] 
     for message in messages: 
         command = ['/usr/local/bin/sendsms', message[0], message[1]]
         print 'Message : ', subprocess.list2cmdline(command)
-        s = subprocess.call(command)
-        print 'Sent message ', message, ' received : ', s
+#        s = subprocess.call(command)
+#        print 'Sent message ', message, ' received : ', s
 
