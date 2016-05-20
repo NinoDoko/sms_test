@@ -87,6 +87,6 @@ def smstools_send_messages(template, users):
     for message in messages: 
         command = ['/usr/local/bin/sendsms', message[0], message[1]]
         print 'Message : ', subprocess.list2cmdline(command)
-#        s = subprocess.call(command)
-#        print 'Sent message ', message, ' received : ', s
+        s = subprocess.call(command)
+        print 'Sent message ', message, ' received : ', s
 
