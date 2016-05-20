@@ -7,7 +7,7 @@
 <div class = "sms_template_cell">
   <li class = list-group-item>
   {{ user.name }} {{ user.phone_number }}
-  <input id = 'va_user_checkbox' type = 'checkbox' name = '{{ user.name }}'>
+  <input id = 'va_user_checkbox_{{ user.name }}' type = 'checkbox' name = '{{ user.name }}'>
   </br>
   {{ user.address}} {{ user.balance }}
   {% if checkbox %}

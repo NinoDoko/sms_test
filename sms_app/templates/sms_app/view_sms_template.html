@@ -19,7 +19,7 @@
     <div class = 'container'>
         <div class = 'row'>
             <div class = 'col-md-4'>
-                {% include 'sms_app/new_template_form.html' with show_title=False hide_received_text=template_is_not_reply tempalte_is_reply=template_is_not_reply%}
+                {% include 'sms_app/new_template_form.html' with show_title=False hide_received_text=template_is_not_reply template_is_not_reply=template_is_not_reply%}
             </div>
             <div class = 'col-md-4 users_query'>
                 Query users : 
@@ -40,11 +40,11 @@
                 <form action = "{% url 'sms_app:sms_template_action' sms_template.id %}" method = 'POST' >
                     {% csrf_token %}
                     <label>
-                        <input type = "checkbox" name = "select_all_sms_templates" id = "select_all_sms_templates"> 
+                        <input type = "checkbox" name = "select_all_users" id = "select_all_users"> 
                             Select/deselect all users
                     </label>
                     <script type = "text/javascript">
-                        $('#select_all_sms_templates').click(function(event){
+                        $('#select_all_users').click(function(event){
                             all_checked = this.checked
                             $(':checkbox').each(function() {
                                 this.checked = all_checked
@@ -62,12 +62,17 @@
                     </div>
                     <script type = 'text/javascript'>
                         $('.queried_users').hide()
+                        {% for user in sms_template.subscribed_users.all %}
+                            $('#va_user_checkbox_{{user.name}}').prop('checked',true)
+                        {% endfor %}
                         $('#view_queried_users').click(function(event){
                             $('.queried_users').toggle()
                         })
                     </script>
                     <input type = 'submit' name = 'send_messages' value = 'Send messages'> 
-                    <input type = 'submit' name = 'subscribe_users' value = 'Subscribe users'> 
+                    {% if not template_is_not_reply %}
+                        <input type = 'submit' name = 'subscribe_users' value = 'Subscribe users'> 
+                    {% endif %}
                 </form>
             </div>
         </div>
