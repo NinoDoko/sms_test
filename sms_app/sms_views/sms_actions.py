@@ -74,7 +74,13 @@ def manage_auto_reply(request, action, sms_id):
     else: raise Exception('Unknown action : ', action)    
     
 def subscribe_users(request, sms_id):
-    template = MessageTemplateAutoReply.objects.get(pk = sms_id)
+    try:
+        template = MessageTemplateAutoReply.objects.get(pk = sms_id)
+    except Exception as e:
+        try:
+            template = MessageTemplate.objects.get(pk = sms_id)
+        except Exception as e: 
+            raise Exception('Failed subbing users : messages is missing. ')
     template.subscribed_users.clear()
     users = [user for user in Contact.objects.all() if user.name in request.POST]
     for u in users:
