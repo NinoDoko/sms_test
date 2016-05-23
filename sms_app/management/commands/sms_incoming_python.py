@@ -14,7 +14,7 @@ class Command(BaseCommand):
         response_template = MessageTemplateAutoReply.objects.all().get(received_text=message)
         
         if user_from not in response_template.subscribed_users.all():
-            print 'User not subscribed'
+            print 'Sending SMS to', user_from.phone_number, 'failed. User', user_from.contact_name, user_from.contact_last_name,'not subscribed; message sent was :', message,'.'
             return
         
         if not response_template: 

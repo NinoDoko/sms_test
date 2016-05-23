@@ -39,9 +39,12 @@
             <div class = 'col-md-4'>
                 <form action = "{% url 'sms_app:sms_template_action' sms_template.id %}" method = 'POST' >
                     {% csrf_token %}
+                    <a href = '#' id = 'view_queried_users'>
+                        View users
+                    </a>
                     <label>
-                        <input type = "checkbox" name = "select_all_users" id = "select_all_users"> 
                             Select/deselect all users
+                            <input type = "checkbox" name = "select_all_users" id = "select_all_users"> 
                     </label>
                     <script type = "text/javascript">
                         $('#select_all_users').click(function(event){
@@ -51,9 +54,6 @@
                             })
                         })
                     </script>
-                    <a href = '#' id = 'view_queried_users'>
-                        View users
-                    </a>
                     </br>
                     <div class = 'queried_users btn-default'>
                         {% for user in queried_users %}
