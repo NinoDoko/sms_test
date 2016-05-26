@@ -10,6 +10,8 @@ urlpatterns = patterns('',
     url(r'^sms_template/(\d+)$', views.view_sms_template, name = 'view_sms_template'),
     url(r'^delete_sms_template/(\d+)$', views.delete_sms_template, name = 'delete_sms_template'),
     
+    url(r'^manage_users/$', views.manage_users, name = 'manage_users'),
+    
     url(r'^manage_auto_reply/add/(\d+)$', views.add_auto_reply, name = 'add_auto_reply'),
     url(r'^manage_auto_reply/remove/(\d+)$', views.remove_auto_reply, name = 'remove_auto_reply'),
     url(r'^manage_auto_reply/subscribe_users/(\d+)$', views.subscribe_users, name = 'subscribe_users'),

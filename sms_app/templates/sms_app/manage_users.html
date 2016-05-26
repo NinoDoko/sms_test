@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% block vap_content %}
+    Select a user to modify. 
+    </br>
+    <form method = "POST" action = '#'>
+        {% csrf_token %}
+        <select id = 'users_select' name = 'users_select'>
+            <option value = '0' id = 'new_user'>New user</option>
+            {% for user in users %}
+                <option value = '{{user.pk}}' id = '{{user.pk}}'>{{ user.contact_name}} {{ user.contact_last_name }}</option>
+            {% endfor %}
+        </select>
+        <table>
+            {{ form }}
+        </table>
+        
+        <script type = 'text/javascript'>
+            users_data = []
+            users_data[0] = {'#id_name':'', '#id_address':'', '#id_contact_name':'', '#id_contact_last_name':'', '#id_phone_number':'', '#id_contact_Type':'', '#id_balance':''}
+        {% for user in users %}
+            users_data[{{user.pk}}] = {'#id_name':'{{user.name}}', '#id_address':'{{user.address}}', '#id_contact_name':'{{user.contact_name}}', '#id_contact_last_name':'{{user.contact_last_name}}', '#id_phone_number':'{{user.phone_number}}', '#id_contact_Type':'{{user.contact_type}}', '#id_balance':'{{user.balance}}'}
+        {% endfor %}
+        $('#users_select').on('change', function(){
+            for (field in users_data[this.value])
+            {
+                $(field).val(users_data[this.value][field])
+            }
+        })
+      </script>
+        <input type = 'submit' value = 'Edit / Add user' name = 'manage_user'>
+        <input type = 'submit' value = 'Delete' name = 'delete_user'>
+        
+    </form>
+{% endblock %}

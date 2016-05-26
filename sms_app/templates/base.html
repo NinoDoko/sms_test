@@ -8,6 +8,14 @@
       </script> 
       <script type="text/javascript" src="{{ STATIC_URL }}jquery.modal.min.js" charset="utf-8">
       </script>
+
+      <script>
+        .modal.default = {
+            escapeClose: true, 
+            closeText: '',
+            showClose: true
+        }
+      </script>
       
       <title>VapourApps SMS</title>
       {% block vap_head %}
@@ -49,7 +57,8 @@
               <li><a href="{% url "sms_app:sms_template_index" %}">Manage SMS templates</a></li>
               <li><a href="{% url "sms_app:sms_template_history" %}">View sent SMS templates</a></li>
               <li><a href="{% url "sms_app:sms_tools_log" %}">SMS errors</a></li>
-              <li><a href="{% url "admin:sms_app_contact_changelist" %}">Manage users</a></li>
+              <li><a href="{% url "sms_app:manage_users" %}">Manage users</a></li> 
+<!--              <li><a href="{% url "admin:sms_app_contact_changelist" %}">Manage users</a></li> -->
               <li><a href="{% url "sms_app:logout"%}">Log out</a></li>
             </ul>
             {% if messages %}
