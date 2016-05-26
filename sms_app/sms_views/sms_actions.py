@@ -95,4 +95,3 @@ def smstools_send_messages(template, users):
         print 'Message : ', subprocess.list2cmdline(command)
         s = subprocess.call(command)
         print 'Sent message ', message, ' received : ', s
-

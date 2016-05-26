@@ -1,0 +1,29 @@
+<style>
+#{% if dialog_name %}{{ dialog_name }}_div{% else %}dialog_message_div{% endif %}_{{object_id}}{
+    left:30%;
+    top:15%;
+    right:30%;
+    bottom:auto;
+    border: 2px solid #73AD21;
+    border-radius: 25px;
+    background-color:white;
+}
+
+
+#{% if dialog_name %}{{ dialog_name }}_contents{% else %}dialog_message_contents{% endif %}_{{object_id}}{
+    margin:15px;
+}
+
+#delete_button{
+    float:right;
+}
+</style>
+
+<div id = '{% if dialog_name %}{{ dialog_name }}{% else %}dialog_message_div{% endif %}_div_{{object_id}}' style="display:none">
+    <div id = '{% if dialog_name %}{{ dialog_name }}_contents{% else %}dialog_message_contents{% endif %}_{{object_id}}'>
+        Are you sure you want to delete {% if object %} '{{ object }}'{% else %} this object{% endif %}? 
+        {{ extra_message }}
+        </br>
+        <a id = 'delete_button' href = '{% url delete_url object_id %}'>Delete</a>
+    </div>
+</div>

@@ -1,0 +1,24 @@
+<style>
+#dialog_message_div{
+    left:60%;
+    top:15%;
+    right:15%;
+    bottom:auto;
+    border: 2px solid #73AD21;
+    border-radius: 25px;
+    background-color:white;
+}
+
+
+#template_help_contents{
+    margin:15px;
+}
+</style>
+
+<div id = 'dialog_message_div' style="display:none">
+    <div id = 'dialog_message_contents'>
+        Are you sure you want to delete {% if object %} {{ object }} {% else %} this? 
+        {{ extra_message }}
+    </div>
+</div>
+
