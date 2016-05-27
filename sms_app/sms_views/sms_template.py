@@ -10,6 +10,7 @@ def template_action(request, old_template):
         if 'crontab' in request.POST:
             crondate = CronDateForm(request.POST).save(commit=False)
             crondate.scheduled_template = old_template
+            #todo actually create cronjob
             crondate.save()
         else:
             old_template.template_text = request.POST.get('sms_template')

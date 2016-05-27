@@ -1,0 +1,15 @@
+<style type = 'text/css'>
+    #unschedule{
+        float:right
+    }
+</style>
+
+<div class = "sms_template_schedule">
+  <li class = list-group-item>
+  <a id = 'unschedule' href = '{% url "sms_app:unschedule_template" sms_template.pk schedule.pk  %}'>x</a> </br>
+  Time : {{ schedule.hour }}:{{ schedule.minute }} </br>
+  Monthly : {{ schedule.day_of_month }} </br>
+  Weekly : {{ schedule.day_of_week }}
+  </li>                  
+</div>
+

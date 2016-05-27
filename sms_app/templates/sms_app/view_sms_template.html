@@ -37,6 +37,19 @@
                     {% endfor %}
                     <input type = 'submit' name = 'crontab' value = 'Add schedule'>
                 </form>
+                <a href = '#' id = 'view_template_schedules'>View when the template is scheduled</a>
+                <div class = 'template_schedules btn-default'>
+                    {% for schedule in sms_template.messagetemplateschedule_set.all %}
+                        {% include "sms_app/template_schedule_cell.html" with schedule=schedule %}
+                    {% endfor %}
+                </div>
+                <script type = 'text/javascript'>
+                    $('.template_schedules').hide()
+                    $('#view_template_schedules').click(function(event){
+                        $('.template_schedules').toggle()
+                    })
+                </script>
+                
             </div>
             <div class = 'col-md-4'>
                 <div class = 'users_query'>

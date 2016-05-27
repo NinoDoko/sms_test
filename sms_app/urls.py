@@ -12,6 +12,8 @@ urlpatterns = patterns('',
     
     url(r'^manage_users/$', views.manage_users, name = 'manage_users'),
     
+    url(r'^template_schedule/(\d+)/remove(\d+)$', views.unschedule_template, name = 'unschedule_template'),
+    
     url(r'^manage_auto_reply/add/(\d+)$', views.add_auto_reply, name = 'add_auto_reply'),
     url(r'^manage_auto_reply/remove/(\d+)$', views.remove_auto_reply, name = 'remove_auto_reply'),
     url(r'^manage_auto_reply/subscribe_users/(\d+)$', views.subscribe_users, name = 'subscribe_users'),
