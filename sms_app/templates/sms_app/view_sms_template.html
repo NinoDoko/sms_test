@@ -22,7 +22,21 @@
                 {% include 'sms_app/new_template_form.html' with show_title=False hide_received_text=template_is_not_reply %}
             </div>
             <div class = 'col-md-4'>
-                {{ cronform }}
+                Schedule this campaign:</br></br>
+                <form action = '#' method = 'POST'>
+                    {% csrf_token %}
+                    {% for field in cronform %}
+                        <div class = 'row'>
+                            <div class = 'col-md-4'>
+                                {{ field.label }}
+                            </div>
+                            <div class = 'col-md-8'>
+                                {{ field }}
+                            </div>
+                        </div>
+                    {% endfor %}
+                    <input type = 'submit' name = 'crontab' value = 'Add schedule'>
+                </form>
             </div>
             <div class = 'col-md-4'>
                 <div class = 'users_query'>

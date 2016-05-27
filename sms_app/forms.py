@@ -9,4 +9,4 @@ class ContactForm(ModelForm):
 class CronDateForm(ModelForm):
     class Meta:
         model = MessageTemplateSchedule
-        fields = '__all__'
+        exclude = ['scheduled_template']

@@ -49,7 +49,8 @@ class MessageTemplateSendHistory(models.Model):
 class MessageTemplateSchedule(models.Model):
 #    cron_date = models.DateTimeField(input_formats = ['%d %B %Y %a %H %M'])
     scheduled_template = models.ForeignKey('MessageTemplate')
-    days_choices = [(i, ['*', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'][i]) for i in range(0, 8)]
+    days = ['*', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+    days_choices = [(x, x) for x in days]
     minute = models.CharField(max_length=2, default = '*')
     hour = models.CharField(max_length=2, default = '*')
     day_of_month = models.CharField(max_length=2, default = '*')
