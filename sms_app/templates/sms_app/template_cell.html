@@ -15,28 +15,20 @@
             {% include 'sms_app/sms_delete_message.html' with dialog_name="delete_template" delete_url="sms_app:delete_sms_template" object_id=sms_template.pk extra_message="This action will be logged." object=sms_template.template_title %}
             <a href = '#delete_template_div_{{sms_template.pk}}' rel="modal:open" title = 'Delete template'><i class="fa fa-times" aria-hidden="true"></i>
 </a></br>
-            <input type = 'checkbox' id = 'auto_reply_{{sms_template.pk}}' name = 'auto_reply' {% if sms_template.received_text %}checked = true{% endif %}>
+            Auto reply
+            <input type = 'checkbox' id = 'auto_reply_{{sms_template.pk}}' name = 'auto_reply' {% if sms_template.messagetemplateautoreply %}checked = true{% endif %}>
             <script type = 'text/javascript'>
                 $('#auto_reply_{{sms_template.pk}}').click(function(){
                     var action = ''
-                    alert(this.checked)
                     if (this.checked) {
                         action = "{%url "sms_app:add_auto_reply" sms_template.pk %}"
                     }
                     else{
-                        alert('removing auto reply')
                         action = "{%url "sms_app:remove_auto_reply" sms_template.pk %}"
                     }
                     window.location = action
                 })
             </script>
-            {% if sms_template.received_text %}
-                <a href = "{%url "sms_app:remove_auto_reply" sms_template.pk %}" title = "Remove auto reply"><i class="fa fa-minus" aria-hidden="true"></i>
-</a>
-            {% else %}
-                <a href = "{%url "sms_app:add_auto_reply" sms_template.pk %}" title = "Use as auto reply"><i class="fa fa-reply" aria-hidden="true"></i>
-</a>
-            {% endif %}
         </div>
 
     {% endif %}

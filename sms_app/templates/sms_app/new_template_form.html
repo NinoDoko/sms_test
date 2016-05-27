@@ -47,7 +47,7 @@
                         </div>
                     </div>
                     <script type = 'text/javascript'>
-                        {% if template_is_not_reply %}
+                        {% if sms_template.messagetemplateautoreply %}
                             $('#received_text').hide()
                             $('#view_received_text').prop('checked', false)
                         {% else %}

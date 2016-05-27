@@ -8,7 +8,7 @@ from sms_app.models import *
 @login_required
 def sms_template_index(request):
     users = Contact.objects.all()
-    test_contact = users.all().filter(name = 'Test')[0]
+    test_contact = users.all().get(name = 'Test')
     if request.POST : 
         if request.POST.get('view_received_text'):
             new_template = MessageTemplateAutoReply(template_text = request.POST['sms_template'], template_title = request.POST['template_title'], received_text = request.POST['received_text'])

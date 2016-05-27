@@ -19,24 +19,27 @@
     <div class = 'container'>
         <div class = 'row'>
             <div class = 'col-md-4'>
-                {% include 'sms_app/new_template_form.html' with show_title=False hide_received_text=template_is_not_reply template_is_not_reply=template_is_not_reply%}
-            </div>
-            <div class = 'col-md-4 users_query'>
-                Query users : 
-                <form method = 'GET' action = #>
-                    <input id = 'name' type = 'text' name = 'name' placeholder = 'name'>
-                    <input id = 'address' type = 'text' name = 'address' placeholder = 'address'>
-                    <input id = 'phone_number' type = 'text' name = 'phone_number' placeholder = 'phone_number'></br>
-                    <input type = 'text' name = 'balance' placeholder = 'balance'>
-                    <input type = 'radio' name = 'balance_operator' value = 'gte'>>=
-                    <input type = 'radio' name = 'balance_operator' value = 'lte'><=
-                    <input type = 'radio' name = 'balance_operator' value = '' checked = 'checked'>=</br>
-                    <input type = 'radio' name = 'contact_type' value = 'private' >Private
-                    <input type = 'radio' name = 'contact_type' value = 'business'>Business</br>
-                    <input type = 'submit'>
-                </form>
+                {% include 'sms_app/new_template_form.html' with show_title=False hide_received_text=template_is_not_reply %}
             </div>
             <div class = 'col-md-4'>
+                Reserved for crontab
+            </div>
+            <div class = 'col-md-4'>
+                <div class = 'users_query'>
+                    Query users : 
+                    <form method = 'GET' action = #>
+                        <input id = 'name' type = 'text' name = 'name' placeholder = 'name'>
+                        <input id = 'address' type = 'text' name = 'address' placeholder = 'address'>
+                        <input id = 'phone_number' type = 'text' name = 'phone_number' placeholder = 'phone_number'></br>
+                        <input type = 'text' name = 'balance' placeholder = 'balance'>
+                        <input type = 'radio' name = 'balance_operator' value = 'gte'>>=
+                        <input type = 'radio' name = 'balance_operator' value = 'lte'><=
+                        <input type = 'radio' name = 'balance_operator' value = '' checked = 'checked'>=</br>
+                        <input type = 'radio' name = 'contact_type' value = 'private' >Private
+                        <input type = 'radio' name = 'contact_type' value = 'business'>Business</br>
+                        <input type = 'submit'>
+                    </form>
+                </div>
                 <form action = "{% url 'sms_app:sms_template_action' sms_template.id %}" method = 'POST' >
                     {% csrf_token %}
                     <a href = '#' id = 'view_queried_users'>
