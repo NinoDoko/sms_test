@@ -45,3 +45,12 @@ class MessageTemplateSendHistory(models.Model):
     message_template = models.ForeignKey('MessageTemplate')
     sent_to_users = models.ManyToManyField(Contact)
     sent_date = models.DateTimeField()
+    
+class MessageTemplateSchedule(models.Model):
+#    cron_date = models.DateTimeField(input_formats = ['%d %B %Y %a %H %M'])
+    scheduled_template = models.ForeignKey('MessageTemplate')
+    days_choices = [(i, ['*', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'][i]) for i in range(0, 8)]
+    minute = models.CharField(max_length=2, default = '*')
+    hour = models.CharField(max_length=2, default = '*')
+    day_of_month = models.CharField(max_length=2, default = '*')
+    day_of_week = models.CharField(max_length = 3, choices = days_choices, default = '*')

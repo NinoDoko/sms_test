@@ -5,3 +5,8 @@ class ContactForm(ModelForm):
     class Meta:
         model = Contact
         fields = '__all__'
+        
+class CronDateForm(ModelForm):
+    class Meta:
+        model = MessageTemplateSchedule
+        fields = '__all__'
