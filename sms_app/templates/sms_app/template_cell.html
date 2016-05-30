@@ -17,6 +17,8 @@
 </a></br>
             Auto reply
             <input type = 'checkbox' id = 'auto_reply_{{sms_template.pk}}' name = 'auto_reply' {% if sms_template.messagetemplateautoreply %}checked = true{% endif %}>
+            Scheduled
+            <input type = 'checkbox' id = 'tempalte_scheduled_{{sms_template.pk}}' {% if sms_template.messagetemplateschedule_set.all %}checked = true{% endif %} disabled>
             <script type = 'text/javascript'>
                 $('#auto_reply_{{sms_template.pk}}').click(function(){
                     var action = ''

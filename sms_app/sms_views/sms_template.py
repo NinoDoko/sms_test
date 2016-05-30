@@ -39,5 +39,6 @@ def view_sms_template(request, sms_id):
     test_contact = users.all().filter(name = 'Test')[0]
     if request.POST : 
         template_action(request, old_template)
+
     users = query_users_from_get_args(request, users)
     return render(request, 'sms_app/view_sms_template.html', {'sms_template' : old_template, 'test_contact' : test_contact, 'queried_users' : users, 'template_is_not_reply' : template_is_not_reply, 'cronform' : crondate_form})

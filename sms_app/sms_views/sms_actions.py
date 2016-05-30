@@ -11,7 +11,7 @@ def query_users_from_get_args(request, users):
             users = users.filter(address__icontains = request.GET['address'])
         if request.GET.get('balance'):
             #The next line is why I love python
-            users = users.filter(**{'balance__' + request.GET.get('balance_operator') : request.GET['balance']})
+            users = users.filter(**{'balance' + request.GET.get('balance_operator') : request.GET['balance']})
         if request.GET.get('contact_type'):
             users = users.filter(contact_type = request.GET['contact_type'])    
     return users

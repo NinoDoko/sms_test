@@ -10,6 +10,13 @@
   Time : {{ schedule.hour }}:{{ schedule.minute }} </br>
   Monthly : {{ schedule.day_of_month }} </br>
   Weekly : {{ schedule.day_of_week }}
-  </li>                  
+  </li>
+  Add a filter:
+  <li class = list-group-item>
+  <a id = 'remove_filter' href = '{% url "sms_app:unschedule_template" sms_template.pk schedule.pk  %}'>x</a> </br>
+  Time : {{ schedule.hour }}:{{ schedule.minute }} </br>
+  Monthly : {{ schedule.day_of_month }} </br>
+  Weekly : {{ schedule.day_of_week }}
+  </li>
 </div>
 
