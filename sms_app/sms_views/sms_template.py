@@ -11,15 +11,24 @@ def template_action(request, old_template):
             new_filter = MessageFilterForm(request.POST)
             new_filter.is_valid()
             clean_data = new_filter.clean()
-            print clean_data
+
             new_filter = MessageTemplateUsersFilter(**clean_data)
+            new_filter.balance_operator = request.POST['balance_operator']
+            schedule = MessageTemplateSchedule.objects.all().get(pk = request.POST['schedule_id'])
+            
+            schedule.messagetemplateusersfilter.delete()
+            schedule.messagetemplateusersfilter = new_filter
+
             new_filter.save()
             return
+            
         if 'crontab' in request.POST:
             crondate = CronDateForm(request.POST).save(commit=False)
             crondate.scheduled_template = old_template
             #todo actually create cronjob
             crondate.save()
+            new_filter = MessageTemplateUsersFilter(balance = 0, filter_for_schedule = crondate)
+            new_filter.save()
         else:
             old_template.template_text = request.POST.get('sms_template')
             old_template.received_text = request.POST.get('received_text')

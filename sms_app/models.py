@@ -61,7 +61,7 @@ class MessageTemplateSchedule(models.Model):
     day_of_week = models.CharField(max_length = 3, choices = days_choices, default = '*')
     
 class MessageTemplateUsersFilter(ContactFields):
-    filter_for_schedule = models.ForeignKey('MessageTemplateSchedule', default = None, null = True)
+    filter_for_schedule = models.OneToOneField(MessageTemplateSchedule, default = None, null = True)
     balance_choices = [('__lte', '<'), ('__gte', '>'), ('', '=')]
     balance_operator = models.CharField(max_length = 5, choices = balance_choices, default = '')
     def attrs(self):

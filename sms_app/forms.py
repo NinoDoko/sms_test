@@ -23,8 +23,8 @@ class MessageFilterForm(ModelForm):
         
     def clean(self):
         cleaned_data = super(MessageFilterForm, self).clean()
-        
-        default_values = {'name':'', 'contact_name':'', 'contact_last_name':'', 'address':'', 'balance':0, 'phone_number':''}
+        print 'Cleaned is : ', cleaned_data
+        default_values = {'name':'', 'contact_name':'', 'contact_last_name':'', 'address':'', 'balance':0, 'phone_number':'', 'balance_operator':''}
         for key in default_values:
             if key not in cleaned_data:
                 cleaned_data[key] = default_values[key]

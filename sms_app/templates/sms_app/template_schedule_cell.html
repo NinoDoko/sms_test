@@ -22,24 +22,20 @@
           </select>
           <script type = 'text/javascript'>
                 $('#select_filter').on('change', function(){
+//                    alert('.field_wrapper_' + this.value + '_{{schedule.pk}}')
                     $('.field_wrapper_' + this.value + '_{{schedule.pk}}').toggle()
                 })
           </script>
-          {% for field in filter_form %}
-            <div class="field_wrapper_{{field.id_for_label}}_{{schedule.pk}}" >
-                {{ field.errors }}
-                {{ field.label_tag }} {{ field }}
-                {% if field.help_text %}
-                <p class="help">{{ field.help_text|safe }}</p>
-                {% endif %}
+          {% for field in schedule.messagetemplateusersfilter.attrs %}
+            <div class="field_wrapper_id_{{field.0}}_{{schedule.pk}}" >
+                <label for="{{field.0}}">{{field.0}}:</label> <input id="{{field.0}}" maxlength="11" name="{{field.0}}" type="text" value = '{{field.1}}'>
             </div>
-            {% if not field.value %}
-                <script type = 'text/javascript'>
-                    $('.field_wrapper_{{field.id_for_label}}_{{schedule.pk}}').hide()
-                </script>
-            {% endif %}
+            <script type = 'text/javascript'>
+                $(".field_wrapper_id_{{field.0}}_{{schedule.pk}}").hide()
+            </script>
           {% endfor %}
       </li>
+      <input type = 'hidden' name = 'schedule_id' value = '{{schedule.pk}}'>
       <input type = 'submit' name = 'edit_filter' value = 'Edit filter'>
       </form>
 </div>
