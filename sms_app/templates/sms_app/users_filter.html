@@ -23,7 +23,7 @@
             <label for="{{field.0}}">{{field.0}}:</label> <input id="{{field.0}}" maxlength="11" name="{{field.0}}" type="text" value = '{{field.1}}'>
         </div>
         <script type = 'text/javascript'>
-            $(".field_wrapper_id_generic").hide()
+            $(".field_wrapper_id_{{field.0}}_{{schedule.pk}}").hide()
         </script>
     {% endif %}
   {% endfor %}
