@@ -4,18 +4,26 @@ from django.shortcuts import redirect
 from sms_app.models import *
 
 def query_users_from_get_args(request, users):
-    if request.GET :
-        if request.GET.get('name'):
-            users = users.filter(name__icontains = request.GET['name'])
-        if request.GET.get('address'):
-            users = users.filter(address__icontains = request.GET['address'])
-        if request.GET.get('balance'):
-            #The next line is why I love python
-            users = users.filter(**{'balance' + request.GET.get('balance_operator') : request.GET['balance']})
-        if request.GET.get('contact_type'):
-            users = users.filter(contact_type = request.GET['contact_type'])    
+    if request.GET:
+        users = query_users_from_dict(request.GET, users)
     return users
-
+    
+def query_users_from_dict(dictionary, users):
+    if dictionary.get('name'):
+        users = users.filter(name__icontains = dictionary['name'])
+    if dictionary.get('contact_name'):
+        users = users.filter(name__icontains = dictionary['contact_name'])
+    if dictionary.get('contact_last_name'):
+        users = users.filter(name__icontains = dictionary['contact_last_name'])
+    if dictionary.get('address'):
+        users = users.filter(address__icontains = dictionary['address'])
+    if dictionary.get('balance'):
+        #The next line is why I love python
+#        print 'Filtering by balance' + dictionary.get('id_balance_operator', '')
+        users = users.filter(**{'balance' + dictionary.get('balance_operator', '') : dictionary['balance']})
+    if dictionary.get('contact_type'):
+        users = users.filter(contact_type = dictionary['contact_type'])
+    return users
 
 def replace_tags(template, user):
     tags = ['<name>', '<balance>', '<contact_type>', '<phone_number>', '<address>', '<contact_name>', '<contact_last_name>']

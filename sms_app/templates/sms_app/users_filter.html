@@ -1,0 +1,31 @@
+<li class = list-group-item>
+  <select id = 'select_filter{% if custom_id %}_{{custom_id}}{% endif %}'>
+      {% for field in filter_form %}
+        <option id = 'filter_select_{{ field.id_for_label }}_{{schedule.pk}}' name = '{{ field.id_for_label }}' value = '{{ field.id_for_label }}'>{{ field.label }}</option>
+      {% endfor %}
+  </select>
+  <script type = 'text/javascript'>
+        $('#select_filter{% if custom_id %}_{{custom_id}}{% endif %}').on('change', function(){
+            $('.field_wrapper_' + this.value + '{% if schedule %}_{{schedule.pk}}{% elif custom_id %}_{{custom_id}}{%endif%}').toggle()
+        })
+  </script>
+  {% for field in filter %}
+    {% if field.id_for_label %}
+        <div class="field_wrapper_{{field.id_for_label}}{% if schedule %}_{{schedule.pk}}{% elif custom_id %}_{{custom_id}}{%endif%}">
+           {{ field.label_tag }} {{ field }}
+        </div>
+        <script type = 'text/javascript'>
+            $(".field_wrapper_{{field.id_for_label}}{% if schedule %}_{{schedule.pk}}{% elif custom_id %}_{{custom_id}}{%endif%}").hide()
+        </script>
+        
+    {% else %}
+        <div class="field_wrapper_id_{{field.0}}_{{schedule.pk}}">
+            <label for="{{field.0}}">{{field.0}}:</label> <input id="{{field.0}}" maxlength="11" name="{{field.0}}" type="text" value = '{{field.1}}'>
+        </div>
+        <script type = 'text/javascript'>
+            $(".field_wrapper_id_generic").hide()
+        </script>
+    {% endif %}
+  {% endfor %}
+</li>
+

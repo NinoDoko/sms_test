@@ -14,29 +14,9 @@
   Add a filter: 
   <form method = 'POST'>
     {% csrf_token %}
-      <li class = list-group-item>
-          <select id = 'select_filter'>
-              {% for field in filter_form %}
-                <option id = 'filter_select_{{ field.id_for_label }}_{{schedule.pk}}' name = '{{ field.id_for_label }}' value = '{{ field.id_for_label }}'>{{ field.label }}</option>
-              {% endfor %}
-          </select>
-          <script type = 'text/javascript'>
-                $('#select_filter').on('change', function(){
-//                    alert('.field_wrapper_' + this.value + '_{{schedule.pk}}')
-                    $('.field_wrapper_' + this.value + '_{{schedule.pk}}').toggle()
-                })
-          </script>
-          {% for field in schedule.messagetemplateusersfilter.attrs %}
-            <div class="field_wrapper_id_{{field.0}}_{{schedule.pk}}" >
-                <label for="{{field.0}}">{{field.0}}:</label> <input id="{{field.0}}" maxlength="11" name="{{field.0}}" type="text" value = '{{field.1}}'>
-            </div>
-            <script type = 'text/javascript'>
-                $(".field_wrapper_id_{{field.0}}_{{schedule.pk}}").hide()
-            </script>
-          {% endfor %}
-      </li>
+    {% include "sms_app/users_filter.html" with filter=schedule.messagetemplateusersfilter.attrs %}
       <input type = 'hidden' name = 'schedule_id' value = '{{schedule.pk}}'>
       <input type = 'submit' name = 'edit_filter' value = 'Edit filter'>
-      </form>
+  </form>
 </div>
 

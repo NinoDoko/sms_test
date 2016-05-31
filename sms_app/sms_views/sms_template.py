@@ -2,7 +2,7 @@ import datetime
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from sms_app.models import *
-from sms_actions import query_users_from_get_args
+from sms_actions import query_users_from_dict
 from sms_app.forms import *
 
 def template_action(request, old_template):
@@ -58,7 +58,9 @@ def view_sms_template(request, sms_id):
     
     
     if request.POST : 
-        template_action(request, old_template)
-
-    users = query_users_from_get_args(request, users)
+        if 'users_query' in request.POST:
+            print request.POST
+            users = query_users_from_dict(request.POST, users)
+        else:
+            template_action(request, old_template)
     return render(request, 'sms_app/view_sms_template.html', {'sms_template' : old_template, 'test_contact' : test_contact, 'queried_users' : users, 'template_is_not_reply' : template_is_not_reply, 'cronform' : crondate_form, 'filter_form' : filter_form})

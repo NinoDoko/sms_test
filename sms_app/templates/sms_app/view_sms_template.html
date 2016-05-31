@@ -54,18 +54,12 @@
             <div class = 'col-md-4'>
                 <div class = 'users_query'>
                     Query users : 
-                    <form method = 'GET' action = #>
-                        <input id = 'name' type = 'text' name = 'name' placeholder = 'name'>
-                        <input id = 'address' type = 'text' name = 'address' placeholder = 'address'>
-                        <input id = 'phone_number' type = 'text' name = 'phone_number' placeholder = 'phone_number'></br>
-                        <input type = 'text' name = 'balance' placeholder = 'balance'>
-                        <input type = 'radio' name = 'balance_operator' value = '__gte'>>=
-                        <input type = 'radio' name = 'balance_operator' value = '__lte'><=
-                        <input type = 'radio' name = 'balance_operator' value = '' checked = 'checked'>=</br>
-                        <input type = 'radio' name = 'contact_type' value = 'private' >Private
-                        <input type = 'radio' name = 'contact_type' value = 'business'>Business</br>
-                        <input type = 'submit'>
-                    </form>
+                      <form method = 'POST'>
+                        {% csrf_token %}
+                        {% include "sms_app/users_filter.html" with filter=filter_form custom_id='site_query' %}
+                        <input type = 'submit' name = 'users_query' value = 'Query users'>
+                      </form>
+
                 </div>
                 <form action = "{% url 'sms_app:sms_template_action' sms_template.id %}" method = 'POST' >
                     {% csrf_token %}
