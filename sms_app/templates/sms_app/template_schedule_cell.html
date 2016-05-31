@@ -11,12 +11,36 @@
   Monthly : {{ schedule.day_of_month }} </br>
   Weekly : {{ schedule.day_of_week }}
   </li>
-  Add a filter:
-  <li class = list-group-item>
-  <a id = 'remove_filter' href = '{% url "sms_app:unschedule_template" sms_template.pk schedule.pk  %}'>x</a> </br>
-  Time : {{ schedule.hour }}:{{ schedule.minute }} </br>
-  Monthly : {{ schedule.day_of_month }} </br>
-  Weekly : {{ schedule.day_of_week }}
-  </li>
+  Add a filter: 
+  <form method = 'POST'>
+    {% csrf_token %}
+      <li class = list-group-item>
+          <select id = 'select_filter'>
+              {% for field in filter_form %}
+                <option id = 'filter_select_{{ field.id_for_label }}_{{schedule.pk}}' name = '{{ field.id_for_label }}' value = '{{ field.id_for_label }}'>{{ field.label }}</option>
+              {% endfor %}
+          </select>
+          <script type = 'text/javascript'>
+                $('#select_filter').on('change', function(){
+                    $('.field_wrapper_' + this.value + '_{{schedule.pk}}').toggle()
+                })
+          </script>
+          {% for field in filter_form %}
+            <div class="field_wrapper_{{field.id_for_label}}_{{schedule.pk}}" >
+                {{ field.errors }}
+                {{ field.label_tag }} {{ field }}
+                {% if field.help_text %}
+                <p class="help">{{ field.help_text|safe }}</p>
+                {% endif %}
+            </div>
+            {% if not field.value %}
+                <script type = 'text/javascript'>
+                    $('.field_wrapper_{{field.id_for_label}}_{{schedule.pk}}').hide()
+                </script>
+            {% endif %}
+          {% endfor %}
+      </li>
+      <input type = 'submit' name = 'edit_filter' value = 'Edit filter'>
+      </form>
 </div>
 

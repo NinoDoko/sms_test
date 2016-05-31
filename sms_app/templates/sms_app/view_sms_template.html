@@ -40,7 +40,7 @@
                 <a href = '#' id = 'view_template_schedules'>View when the template is scheduled</a>
                 <div class = 'template_schedules btn-default'>
                     {% for schedule in sms_template.messagetemplateschedule_set.all %}
-                        {% include "sms_app/template_schedule_cell.html" with schedule=schedule %}
+                        {% include "sms_app/template_schedule_cell.html" with schedule=schedule filter_fields=filter_fields %}
                     {% endfor %}
                 </div>
                 <script type = 'text/javascript'>

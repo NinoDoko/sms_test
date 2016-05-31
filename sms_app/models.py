@@ -1,6 +1,6 @@
 from django.db import models
 
-class Contact(models.Model):
+class ContactFields(models.Model):
     contact_type_choices = [('business', 'business'), ('private', 'private')]
     name = models.CharField(max_length = 30)
     address = models.CharField(max_length = 50)
@@ -9,6 +9,11 @@ class Contact(models.Model):
     phone_number = models.CharField(max_length = 11)
     contact_type = models.CharField(max_length = 10, choices = contact_type_choices, default = 'private')
     balance = models.IntegerField()
+
+    class Meta:
+        abstract = True
+
+class Contact(ContactFields):
     
     def __unicode__(self):
         return self.name
@@ -47,7 +52,6 @@ class MessageTemplateSendHistory(models.Model):
     sent_date = models.DateTimeField()
     
 class MessageTemplateSchedule(models.Model):
-#    cron_date = models.DateTimeField(input_formats = ['%d %B %Y %a %H %M'])
     scheduled_template = models.ForeignKey('MessageTemplate')
     days = ['*', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
     days_choices = [(x, x) for x in days]
@@ -55,3 +59,11 @@ class MessageTemplateSchedule(models.Model):
     hour = models.CharField(max_length=2, default = '*')
     day_of_month = models.CharField(max_length=2, default = '*')
     day_of_week = models.CharField(max_length = 3, choices = days_choices, default = '*')
+    
+class MessageTemplateUsersFilter(ContactFields):
+    filter_for_schedule = models.ForeignKey('MessageTemplateSchedule', default = None, null = True)
+    balance_choices = [('__lte', '<'), ('__gte', '>'), ('', '=')]
+    balance_operator = models.CharField(max_length = 5, choices = balance_choices, default = '')
+    def attrs(self):
+        for attr, value in self.__dict__.iteritems():
+            yield attr, value

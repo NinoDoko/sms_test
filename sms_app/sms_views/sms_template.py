@@ -7,6 +7,14 @@ from sms_app.forms import *
 
 def template_action(request, old_template):
     try:
+        if 'edit_filter' in request.POST:
+            new_filter = MessageFilterForm(request.POST)
+            new_filter.is_valid()
+            clean_data = new_filter.clean()
+            print clean_data
+            new_filter = MessageTemplateUsersFilter(**clean_data)
+            new_filter.save()
+            return
         if 'crontab' in request.POST:
             crondate = CronDateForm(request.POST).save(commit=False)
             crondate.scheduled_template = old_template
@@ -29,16 +37,19 @@ def view_sms_template(request, sms_id):
         old_template = old_template.messagetemplateautoreply
     except old_template.DoesNotExist as e:
         template_is_not_reply = True
-        pass
 
     crondate_form = CronDateForm()
     crondate_form.scheduled_template = old_template
 
+    filter_form = MessageFilterForm()
+
     subscribed_users = []
     users = Contact.objects.all()
     test_contact = users.all().filter(name = 'Test')[0]
+    
+    
     if request.POST : 
         template_action(request, old_template)
 
     users = query_users_from_get_args(request, users)
-    return render(request, 'sms_app/view_sms_template.html', {'sms_template' : old_template, 'test_contact' : test_contact, 'queried_users' : users, 'template_is_not_reply' : template_is_not_reply, 'cronform' : crondate_form})
+    return render(request, 'sms_app/view_sms_template.html', {'sms_template' : old_template, 'test_contact' : test_contact, 'queried_users' : users, 'template_is_not_reply' : template_is_not_reply, 'cronform' : crondate_form, 'filter_form' : filter_form})

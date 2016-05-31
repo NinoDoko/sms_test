@@ -10,3 +10,27 @@ class CronDateForm(ModelForm):
     class Meta:
         model = MessageTemplateSchedule
         exclude = ['scheduled_template']
+        
+class MessageFilterForm(ModelForm):
+    def validate(self):
+        validated = super(MessageFilterForm, self).validate()
+        print validated, 'is validted'
+        return True
+        
+    def is_valid(self):
+        validated = super(MessageFilterForm, self).is_valid()
+        return True
+        
+    def clean(self):
+        cleaned_data = super(MessageFilterForm, self).clean()
+        
+        default_values = {'name':'', 'contact_name':'', 'contact_last_name':'', 'address':'', 'balance':0, 'phone_number':''}
+        for key in default_values:
+            if key not in cleaned_data:
+                cleaned_data[key] = default_values[key]
+        
+        return cleaned_data
+        
+    class Meta:
+        model = MessageTemplateUsersFilter
+        exclude = ['filter_for_schedule']
