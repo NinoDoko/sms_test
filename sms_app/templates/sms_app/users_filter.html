@@ -6,24 +6,43 @@
   </select>
   <script type = 'text/javascript'>
         $('#select_filter{% if custom_id %}_{{custom_id}}{% elif schedule %}_{{schedule.pk}}{% endif %}').on('change', function(){
-            $('.field_wrapper_' + this.value + '{% if schedule %}_{{schedule.pk}}{% elif custom_id %}_{{custom_id}}{%endif%}').toggle()
+            $('.field_wrapper_' + this.value + '{% if schedule %}_{{schedule.pk}}{% elif custom_id %}_{{custom_id}}{%endif%}').show()
         })
   </script>
   {% for field in filter %}
+  
     {% if field.id_for_label %}
         <div class="field_wrapper_{{field.id_for_label}}{% if schedule %}_{{schedule.pk}}{% elif custom_id %}_{{custom_id}}{%endif%}">
            {{ field.label_tag }} {{ field }}
+           <a href = 'javascript:void(0);' id = "hide_field_{{field.id_for_label}}{% if schedule %}_{{schedule.pk}}{% elif custom_id %}_{{custom_id}}{%endif%}">x</a>
         </div>
         <script type = 'text/javascript'>
             $(".field_wrapper_{{field.id_for_label}}{% if schedule %}_{{schedule.pk}}{% elif custom_id %}_{{custom_id}}{%endif%}").hide()
+            $("#hide_field_{{field.id_for_label}}{% if schedule %}_{{schedule.pk}}{% elif custom_id %}_{{custom_id}}{%endif%}").click(function(event){
+                $(".field_wrapper_{{field.id_for_label}}{% if schedule %}_{{schedule.pk}}{% elif custom_id %}_{{custom_id}}{%endif%}").hide()
+            })
         </script>
+
+
         
     {% else %}
         <div class="field_wrapper_id_{{field.0}}_{{schedule.pk}}">
+            {% if field.0 == 'balance_operator' %}
+            <select id="{{field.0}}" maxlength="11" name="{{field.0}}" >
+                <option name="__gte" value = "__gte">></option>
+                <option name="__lte" value = "__lte"><</option>
+                <option name="" value = "">=</option>
+            </select>
+            {% else %}
             <label for="{{field.0}}">{{field.0}}:</label> <input id="{{field.0}}" maxlength="11" name="{{field.0}}" type="text" value = '{{field.1}}'>
+           {% endif %}
+           <a href = 'javascript:void(0);' id = "hide_field__id_{{field.0}}_{{schedule.pk}}">x</a>
         </div>
         <script type = 'text/javascript'>
             $(".field_wrapper_id_{{field.0}}_{{schedule.pk}}").hide()
+            $("#hide_field__id_{{field.0}}_{{schedule.pk}}").click(function(event){
+                $(".field_wrapper_id_{{field.0}}_{{schedule.pk}}").hide()
+            })            
         </script>
     {% endif %}
   {% endfor %}

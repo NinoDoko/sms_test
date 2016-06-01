@@ -9,6 +9,7 @@ def query_users_from_get_args(request, users):
     return users
     
 def query_users_from_dict(dictionary, users):
+    print dictionary
     if dictionary.get('name'):
         users = users.filter(name__icontains = dictionary['name'])
     if dictionary.get('contact_name'):
@@ -101,5 +102,5 @@ def smstools_send_messages(template, users):
     for message in messages: 
         command = ['/usr/local/bin/sendsms', message[0], message[1]]
         print 'Message : ', subprocess.list2cmdline(command)
-        s = subprocess.call(command)
-        print 'Sent message ', message, ' received : ', s
+#        s = subprocess.call(command)
+#        print 'Sent message ', message, ' received : ', s
