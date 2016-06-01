@@ -1,11 +1,11 @@
 <li class = list-group-item>
-  <select id = 'select_filter{% if custom_id %}_{{custom_id}}{% endif %}'>
+  <select id = 'select_filter{% if custom_id %}_{{custom_id}}{% elif schedule %}_{{schedule.pk}}{% endif %}'>
       {% for field in filter_form %}
         <option id = 'filter_select_{{ field.id_for_label }}_{{schedule.pk}}' name = '{{ field.id_for_label }}' value = '{{ field.id_for_label }}'>{{ field.label }}</option>
       {% endfor %}
   </select>
   <script type = 'text/javascript'>
-        $('#select_filter{% if custom_id %}_{{custom_id}}{% endif %}').on('change', function(){
+        $('#select_filter{% if custom_id %}_{{custom_id}}{% elif schedule %}_{{schedule.pk}}{% endif %}').on('change', function(){
             $('.field_wrapper_' + this.value + '{% if schedule %}_{{schedule.pk}}{% elif custom_id %}_{{custom_id}}{%endif%}').toggle()
         })
   </script>

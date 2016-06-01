@@ -6,6 +6,7 @@
 
 <div class = "sms_template_schedule">
   <li class = list-group-item>
+  Scheduled for : 
   <a id = 'unschedule' href = '{% url "sms_app:unschedule_template" sms_template.pk schedule.pk  %}'>x</a> </br>
   Time : {{ schedule.hour }}:{{ schedule.minute }} </br>
   Monthly : {{ schedule.day_of_month }} </br>
