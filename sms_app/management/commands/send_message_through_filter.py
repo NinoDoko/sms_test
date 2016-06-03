@@ -12,8 +12,8 @@ class Command(BaseCommand):
         schedule_filter = schedule.messagetemplateusersfilter
         all_users = Contact.objects.all()
         template = schedule.scheduled_template
+        
         try:
-            print schedule_filter.balance_operator
             filtered_users = query_users_from_dict(schedule_filter.__dict__, all_users)
         except Exception as e:
             print e, schedule_filter.__dict__

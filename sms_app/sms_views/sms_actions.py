@@ -13,14 +13,13 @@ def query_users_from_dict(dictionary, users):
     if dictionary.get('name'):
         users = users.filter(name__icontains = dictionary['name'])
     if dictionary.get('contact_name'):
-        users = users.filter(name__icontains = dictionary['contact_name'])
+        users = users.filter(contact_name__icontains = dictionary['contact_name'])
     if dictionary.get('contact_last_name'):
-        users = users.filter(name__icontains = dictionary['contact_last_name'])
+        users = users.filter(contact_last_name__icontains = dictionary['contact_last_name'])
     if dictionary.get('address'):
         users = users.filter(address__icontains = dictionary['address'])
     if dictionary.get('balance'):
         #The next line is why I love python
-#        print 'Filtering by balance' + dictionary.get('id_balance_operator', '')
         users = users.filter(**{'balance' + dictionary.get('balance_operator', '') : dictionary['balance']})
     if dictionary.get('contact_type'):
         users = users.filter(contact_type = dictionary['contact_type'])
@@ -102,5 +101,8 @@ def smstools_send_messages(template, users):
     for message in messages: 
         command = ['/usr/local/bin/sendsms', message[0], message[1]]
         print 'Message : ', subprocess.list2cmdline(command)
+        a = open('/home/nino/vap/sms_project/sms_project/sms_app/sms_views/sms_log', 'a')
+        a.write('Message : ' + subprocess.list2cmdline(command) + '\n')
+        a.close()
 #        s = subprocess.call(command)
 #        print 'Sent message ', message, ' received : ', s

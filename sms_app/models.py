@@ -54,10 +54,13 @@ class MessageTemplateSendHistory(models.Model):
 class MessageTemplateSchedule(models.Model):
     scheduled_template = models.ForeignKey('MessageTemplate')
     days = ['*', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+    months = ['*', 'Jan', 'Feb', 'Mar', 'Apr', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
     days_choices = [(x, x) for x in days]
+    months_choices = [(x, x) for x in months]
     minute = models.CharField(max_length=2, default = '*')
     hour = models.CharField(max_length=2, default = '*')
     day_of_month = models.CharField(max_length=2, default = '*')
+    monthly = models.CharField(max_length = 3, choices = months_choices, default = '*')
     day_of_week = models.CharField(max_length = 3, choices = days_choices, default = '*')
     
 class MessageTemplateUsersFilter(ContactFields):
