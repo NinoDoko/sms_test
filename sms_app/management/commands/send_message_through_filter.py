@@ -16,7 +16,7 @@ class Command(BaseCommand):
         try:
             filtered_users = query_users_from_dict(schedule_filter.__dict__, all_users)
         except Exception as e:
-            print e, schedule_filter.__dict__
+            a.write('Error : ' + str(e) + str(schedule_filter.__dict__))
             filtered_users = all_users
-        
+            
         smstools_send_messages(template, filtered_users)

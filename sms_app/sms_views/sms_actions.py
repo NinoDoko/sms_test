@@ -104,5 +104,5 @@ def smstools_send_messages(template, users):
         a = open('/home/nino/vap/sms_project/sms_project/sms_app/sms_views/sms_log', 'a')
         a.write('Message : ' + subprocess.list2cmdline(command) + '\n')
         a.close()
-#        s = subprocess.call(command)
-#        print 'Sent message ', message, ' received : ', s
+        s = subprocess.call(command)
+        print 'Sent message ', message, ' received : ', s

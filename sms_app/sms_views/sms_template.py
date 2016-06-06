@@ -6,11 +6,10 @@ from sms_actions import query_users_from_dict
 from sms_app.forms import *
 
 
-def create_cronjob(crondate):
-    crontab_command = '/home/nino/vap/sms_project/sms_project/send_filtered_messages.sh ' + str(crondate.pk)
+def create_cronjob(crondate, script_path = '/home/nino/vap/sms_project/sms_project/'):
+    crontab_command = 'cd ' + script_path  + '; ./send_filtered_messages.sh ' + str(crondate.pk)
     crontab_dates = crondate.minute + ' ' + crondate.hour + ' ' + crondate.day_of_month + ' ' + crondate.monthly + ' ' + crondate.day_of_week
-    open('/etc/cron.d/vapour_sms_schedule_' + str(crondate.pk), 'w').write(crontab_dates + ' root ' + crontab_command + '\n')
-    print crontab_dates + ' ' + crontab_command
+    open('/etc/cron.d/vapour_sms_schedule_' + str(crondate.pk), 'w').write(crontab_dates + ' root ' + crontab_command + ' >> ' + 'sms_app/sms_views/sms_log' + '\n')
 
 def template_action(request, old_template):
     try:
