@@ -7,3 +7,23 @@ To: 38978362446
 {'phone_number': u'', 'name': u'', 'contact_last_name': u'Dokoski', 'contact_type': u'private', '_filter_for_schedule_cache': <MessageTemplateSchedule: MessageTemplateSchedule object>, '_state': <django.db.models.base.ModelState object at 0x7fb53b3d70d0>, 'balance_operator': u'__gte', 'filter_for_schedule_id': 53, 'address': u'', 'contact_name': u'Nikola', 'balance': 0, 'id': 83}
 Message :  /usr/local/bin/sendsms 38978362446 "Pocituvani Nikola, vasiot balans e : 150. "
 Sent message  (u'38978362446', u'Pocituvani Nikola, vasiot balans e : 150. ')  received :  0
+Attempting to send message : python /home/nino/vap/sms_project/sms_project/manage.py send_message_through_filter 54
+Message : /usr/local/bin/sendsms 38976527737 "Pocituvani Vlatko, vasiot balans e : 150. "
+Message : /usr/local/bin/sendsms 38975389225 "Pocituvani Marko, vasiot balans e : 150. "
+Message : /usr/local/bin/sendsms 38978362446 "Pocituvani Nikola, vasiot balans e : 150. "
+Result : -- 
+Text: Pocituvani Vlatko, vasiot balans e : 150. 
+To: 38976527737
+-- 
+Text: Pocituvani Marko, vasiot balans e : 150. 
+To: 38975389225
+-- 
+Text: Pocituvani Nikola, vasiot balans e : 150. 
+To: 38978362446
+{'phone_number': u'', 'name': u'', 'contact_last_name': u'', 'contact_type': u'private', '_filter_for_schedule_cache': <MessageTemplateSchedule: MessageTemplateSchedule object>, '_state': <django.db.models.base.ModelState object at 0x7f7741324110>, 'balance_operator': u'__gte', 'filter_for_schedule_id': 54, 'address': u'', 'contact_name': u'', 'balance': 0, 'id': 85}
+Message :  /usr/local/bin/sendsms 38976527737 "Pocituvani Vlatko, vasiot balans e : 150. "
+Sent message  (u'38976527737', u'Pocituvani Vlatko, vasiot balans e : 150. ')  received :  0
+Message :  /usr/local/bin/sendsms 38975389225 "Pocituvani Marko, vasiot balans e : 150. "
+Sent message  (u'38975389225', u'Pocituvani Marko, vasiot balans e : 150. ')  received :  0
+Message :  /usr/local/bin/sendsms 38978362446 "Pocituvani Nikola, vasiot balans e : 150. "
+Sent message  (u'38978362446', u'Pocituvani Nikola, vasiot balans e : 150. ')  received :  0

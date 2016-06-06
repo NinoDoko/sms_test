@@ -1,15 +1,18 @@
 import datetime
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
+from django.conf import settings
 from sms_app.models import *
 from sms_actions import query_users_from_dict
 from sms_app.forms import *
 
 
-def create_cronjob(crondate, script_path = '/home/nino/vap/sms_project/sms_project/'):
+def create_cronjob(crondate, script_path = ''):
+    if not script_path: script_path = settings.BASE_DIR
+
     crontab_command = 'cd ' + script_path  + '; ./send_filtered_messages.sh ' + str(crondate.pk)
     crontab_dates = crondate.minute + ' ' + crondate.hour + ' ' + crondate.day_of_month + ' ' + crondate.monthly + ' ' + crondate.day_of_week
-    open('/etc/cron.d/vapour_sms_schedule_' + str(crondate.pk), 'w').write(crontab_dates + ' root ' + crontab_command + ' >> ' + 'sms_app/sms_views/sms_log' + '\n')
+    open('/etc/cron.d/vapour_sms_schedule_' + str(crondate.pk), 'w').write(crontab_dates + ' root ' + crontab_command + '\n')
 
 def template_action(request, old_template):
     try:

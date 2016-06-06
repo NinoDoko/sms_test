@@ -54,9 +54,6 @@ def send_sms(request, sms_id):
     
     smstools_send_messages(template, users)
 
-    sent_template = MessageTemplateSendHistory(message_template = template, sent_date = datetime.datetime.now())
-    sent_template.save()
-    sent_template.sent_to_users.add(*users)
     return redirect('sms_app:sms_template_index')
 
 
@@ -101,8 +98,9 @@ def smstools_send_messages(template, users):
     for message in messages: 
         command = ['/usr/local/bin/sendsms', message[0], message[1]]
         print 'Message : ', subprocess.list2cmdline(command)
-        a = open('/home/nino/vap/sms_project/sms_project/sms_app/sms_views/sms_log', 'a')
-        a.write('Message : ' + subprocess.list2cmdline(command) + '\n')
-        a.close()
-        s = subprocess.call(command)
-        print 'Sent message ', message, ' received : ', s
+#        s = subprocess.call(command)
+#        print 'Sent message ', message, ' received : ', s
+
+    sent_template = MessageTemplateSendHistory(message_template = template, sent_date = datetime.datetime.now())
+    sent_template.save()
+    sent_template.sent_to_users.add(*users)

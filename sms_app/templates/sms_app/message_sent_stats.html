@@ -1,12 +1,42 @@
 {% extends 'base.html' %}
 {% block vap_content %}
-    <div class = 'users_list_{{forloop.counter}}'>
+    <table class = 'table'>
+        <tr>
+            <th>
+                User name and last name
+            </th>
+            <th>
+                Phone number
+            </th>
+            <th>
+                Contact type
+            </th>
+            <th>
+                Address
+            </th>
+            <th>
+                Balance
+            </th>
+        </tr>
         {% for user in sms_history.sent_to_users.all %}
-                <a href = '{% url 'admin:sms_app_contact_change' user.pk %}'>
-                    {{ user.contact_name }}
-                </a>
-                </br>
+            <tr>
+                <td>
+                        {{ user.contact_name }} {{ user.contact_last_name }}
+                </td>
+                <td>
+                        {{ user.phone_number }}
+                </td>
+                <td>
+                        {{ user.contact_type }}
+                </td>
+                <td>
+                        {{ user.address }}
+                </td>
+                <td>
+                        {{ user.balance }}
+                </td>
+            </tr>
         {% endfor %}
-    </div>
+        </table>
 {% endblock %}
 

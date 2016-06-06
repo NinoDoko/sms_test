@@ -25,6 +25,7 @@
             <td>
                 <a href = "{% url 'sms_app:sms_template_stats' history.pk %}" id = 'view_users_{{forloop.counter}}'> View users </a>
             </td>
+        </tr>
     {% endfor %}
     </table>
 {% endblock %}
