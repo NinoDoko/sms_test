@@ -1,7 +1,7 @@
-from django.conf.urls import patterns, include, url
+from django.conf.urls import include, url
 import views
 
-urlpatterns = patterns('',
+urlpatterns = [
     url(r'^$', views.index, name = 'index'),
     url(r'^sms_template/$', views.sms_template_index, name = 'sms_template_index'),
     url(r'^template_action/(\d+)$', views.sms_action, name = 'sms_template_action'),
@@ -22,4 +22,4 @@ urlpatterns = patterns('',
     url(r'^send_sms/(\d+)$', views.send_sms, name = 'send_sms'),
 
     url(r'^log_out$', views.log_out, name = 'logout'),
-)
+]
